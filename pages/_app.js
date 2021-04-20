@@ -28,10 +28,10 @@ class MyApp extends Component {
     const { Component, pageProps } = this.props;
 
     return (   
-    <div>
+    <>
     <Component {...pageProps} setting={this.state.Pengaturan} />
     <ToastContainer />
-    </div>
+    </>
     );
   }
 }

@@ -10,25 +10,55 @@ class Auth extends ResourceController
 
     public function create()
     {
-        
-        $user = $this->request->getPost('username');
-        $password = md5($this->request->getPost('password'));
+        if ($this->request)
+        {
+            if($this->request->getJSON()) {
+                $json = $this->request->getJSON();
+                $user = $json->username;
+                $password = md5($json->password);
 
-        $cek = $this->model->cek_login($user,$password);
-        if ($cek) {
-            $response = [
-                'id' => '2',
-                'data' => $cek
-            ];
+                $cek = $this->model->cek_login($user,$password);
+                if ($cek) {
+                    $response = [
+                        'id' => '1',
+                        'data' => $cek
+                    ];
+                    return $this->response->setStatusCode(200)->setJSON($response);
+                } else {
+                    $response = [
+                        'id' => '404',
+                        'data' => 'User Not Found'
+                    ];
+                    return $this->response->setStatusCode(200)->setJSON($response);
+                }
+            } else {
+                $user = $this->request->getPost('username');
+                $password = md5($this->request->getPost('password'));
+
+                $cek = $this->model->cek_login($user,$password);
+                if ($cek) {
+                    $response = [
+                        'id' => '1',
+                        'data' => $cek
+                    ];
+                    return $this->response->setStatusCode(200)->setJSON($response);
+                } else {
+                    $response = [
+                        'id' => '404',
+                        'data' => 'User Not Found'
+                    ];
+                    return $this->response->setStatusCode(200)->setJSON($response);
+                }
+            }
+        } else{
+			$response = [
+				'id'=> '404',
+				'data' => 'Data Not Found'
+			];
             return $this->response->setStatusCode(200)->setJSON($response);
-        } else {
-            $response = [
-                'id' => '404',
-                'data' => 'User Not Found'
-            ];
-            return $this->response->setStatusCode(404)->setJSON($response);
-        }
-    }
+		}
+        
+    }   
 
     
 }

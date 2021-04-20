@@ -43,12 +43,6 @@ class Login extends Component {
             //alert(JSON.stringify(values));
             API.PostLogin(values).then(res=>{
                 if (res.id === "1" ) {
-                    localStorage.setItem('isLogin',JSON.stringify(res.data))
-                    toast.success("Login Berhasil", {position: "top-center"}); 
-                    setTimeout(()=>{
-                        Router.push('/')
-                    },2000)
-                } else if (res.id === "2" ) {
                     localStorage.setItem('isAdmin',JSON.stringify(res.data))
                     toast.success("Login Berhasil", {position: "top-center"});
                     setTimeout(()=>{
@@ -96,7 +90,7 @@ class Login extends Component {
     
     <div className="py-3">
     <Link href="/">
-            <>← Kembali ke home</>
+            <a>← Kembali ke home</a>
           </Link>
     </div>
     </main>
