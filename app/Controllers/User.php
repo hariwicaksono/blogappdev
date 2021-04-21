@@ -38,7 +38,7 @@ class User extends ResourceController
                 'status' => '0',
                 'data' => 'Data Not Found'
             ];
-            return $this->respond($response, 404);
+            return $this->respond($response, 200);
         }
     }
 

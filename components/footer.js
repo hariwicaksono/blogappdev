@@ -6,22 +6,16 @@ class Footer extends Component{
      
         return(  
                
-            <div className="text-white border-0 py-3" style={{backgroundColor:'#212529'}}>
-              <Container>
-            <Row>
-                <Col md={12}>
-                <h3>Footer</h3>
-                </Col>
-
-            </Row>
+        <footer className="footer text-white border-0 bg-primary text-light py-3">
+            <Container>
            
-            <div className="text-white mt-3">© {(new Date().getFullYear())} {this.props.setting.company}. Blog App Dengan React Next.js dan CodeIgniter 3</div>
+            <div className="text-white mt-3">© {(new Date().getFullYear())} {this.props.setting.company}. Aplikasi Web Company Profile dan Blog dengan React Next.js dan CodeIgniter 4</div>
             </Container>
-            </div>
+        </footer>
 
 
         )
     }
 }
 
-export default Footer
+export default Footer;

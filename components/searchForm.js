@@ -49,11 +49,11 @@ class SearchForm extends Component {
 
         return (
            
-                <Form className="search-form pe-3" onSubmit={this.handlerSubmit}>
+                <Form className="d-flex me-3" onSubmit={this.handlerSubmit}>
 
                     <Form.Control type="text" name="query" placeholder="Search" onChange={this.handlerChange} required/>
             
-                    <Button variant="light" type="submit" style={{top:'10px',right:'25px'}}>
+                    <Button variant="outline-secondary" type="submit">
                     {
                         this.state.loading
                         ?

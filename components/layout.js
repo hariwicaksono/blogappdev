@@ -80,7 +80,7 @@ class Layout extends Component {
     <div id="content">
       <Container>
     <div className="pt-3">
-    <Link href="/" passHref><a>Kembali</a></Link>
+    <Link href="/" passHref><a>← Kembali</a></Link>
     </div> 
     </Container>
       {children}

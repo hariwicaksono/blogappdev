@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Badge, Row, Col, Card } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { ImagesUrl } from '../libs/urls';
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
@@ -25,17 +25,20 @@ class Posts extends Component {
                 const slice = this.props.data.slice(this.state.offset, this.state.offset + this.state.perPage)
                 const ListPost = slice.map((post, key) => (
                     <Col md={3} lg={3} xl={3} key={post.id}>
-                        <div className="single-blog" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="50">
-                        <div className="blog-img">
-                        <img src={this.state.url+post.post_image} alt={post.title} className="img-fluid" />
-                        <span class="date-meta">{post.created_at}</span>
-                        </div>
-                        <small className="text-muted">Posted in: <Link href={"/tag/"+post.category} passHref><a>{post.category}</a></Link></small>
-                        <div className="blog-content">
-                        <h4><Link href={"/blog/posts/"+post.id} passHref><a>{post.title}</a></Link></h4>
+                        <Card data-aos="fade-down" data-aos-easing="linear" data-aos-delay="50">
+                        <Card.Img variant="top" src={this.state.url+post.post_image} alt={post.title} />
+                        <Card.Body>
+                        <p className="text-muted">{post.created_at}</p> 
+                        
+                        <Card.Title className="fw-bold mb-0">
+                        <Link href={"/blog/posts/"+post.slug} passHref><a>{post.title}</a></Link>
+                        </Card.Title>
+                        <Card.Text>
                         {parse(post.summary, { trim: true })}
-                        </div>
-                        </div>
+                        </Card.Text>
+                        <Link href={"/tag/"+post.category} passHref><a><span className="badge bg-info text-dark">{post.category}</span></a></Link>
+                        </Card.Body>
+                        </Card>
                     </Col>
                 ))
 

@@ -44,43 +44,48 @@ class Index extends Component{
       </Head>
 
       <Container className="my-3">
+      
       {this.state.loading ?
-      <>
+    <>
+    <Row>
       <Skeleton count={4} height={40} className="mb-1" />
       <Skeleton width={100} height={40} />
+      </Row>
       </>
+      
       :
       <>
+       <Row>
+         <Col>
       <Jumbotron className="mb-3">
-        <h2>Selamat Datang di Admin Panel</h2>
+        <h1 className="h3 fw-bold">Selamat Datang di Admin Panel</h1>
       </Jumbotron>
-
-      <Row>
+      </Col>
+      </Row>
+     <Row>
         <Col md={4}>
-        <Card bg="info" text="light" body>
+        <Card bg="light" text="dark" body>
               <h5>Jumlah Post</h5>
               <h1>{this.state.JumlahBlog}</h1>
             </Card>
         </Col>
         <Col md={4}>
-        <Card bg="success" text="light" body>
+        <Card bg="light" text="dark" body>
               <h5>Jumlah Kategori</h5>
               <h1>{this.state.JumlahKategori}</h1>
             </Card>
         </Col>
         <Col md={4}>
-        <Card bg="danger" text="light" body>
+        <Card bg="light" text="dark" body>
               <h5>Jumlah Komentar</h5>
               <h1>{this.state.JumlahKomentar}</h1>
             </Card>
         </Col>
       </Row>
+     
       </>
       }
-      
-
-      </Container>
-
+ </Container>
       </Layout>
     );
   }

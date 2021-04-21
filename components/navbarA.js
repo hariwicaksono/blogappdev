@@ -36,11 +36,13 @@ componentDidMount = () => {
  if (isAdmin()) {
        const data = JSON.parse(localStorage.getItem('isAdmin'))
        const id = data[0].email
+       console.log(id)
        API.GetUserId(id).then(res=>{
+
            this.setState({
-               id : res.data[0].id,
-               name: res.data[0].name,
-               email: res.data[0].email,
+            id: res.data.id,
+               name: res.data.name,
+               email: res.data.email,
                loading: false,
                admin: true
            })
@@ -60,18 +62,18 @@ componentDidMount = () => {
 
     return(
      
-<Navbar bg="primary" variant="dark" className="shadow border-bottom py-3" expand="lg" sticky="top">
+<Navbar bg="primary" variant="dark" className="shadow border-bottom py-0" expand="lg" sticky="top">
 <Container>
 {this.state.admin && (
-    <Button onClick={this.props.toggleMenu} type="button" className="btn btn-primary text-white btn-sm mr-2">
+    <Button onClick={this.props.toggleMenu} type="button" className="btn btn-primary text-white me-2">
       <FaBars />
     </Button>
   )}
   <Link href="/" passHref><Navbar.Brand>{ this.state.loading ?<><Skeleton width={180} height={25} /></>:<>{this.props.setting.company}</>}</Navbar.Brand></Link>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Toggle aria-controls="basic-navbar-nav" className="sub-menu-bar" />
   <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
-    <Link href="/" passHref><Nav.Link>Home</Nav.Link></Link>
+  <ul className="navbar-nav me-auto">
+  <li className="nav-item"><Link href="/" passHref><Nav.Link>Home</Nav.Link></Link></li>
       {/*<Link href="/blog" passHref><Nav.Link>Blog</Nav.Link></Link>
       <NavDropdown title="Dropdown" id="basic-nav-dropdown">
         <Link href="#" passHref><NavDropdown.Item>Action</NavDropdown.Item></Link>
@@ -80,46 +82,46 @@ componentDidMount = () => {
         <NavDropdown.Divider />
         <Link href="#" passHref><NavDropdown.Item>Separated link</NavDropdown.Item></Link>
       </NavDropdown>*/}
-    </Nav>
+    </ul>
+
     <SearchForm/>
 
     {this.state.login ?
-                <>
-                <Form inline>
-                <Link href="/login" passHref><Button className="text-light" variant="link"><FaSignInAlt/> Login</Button></Link>
-                </Form>
-               
-                </>
-               :
-               <>
-               <Nav>
-               <NavItem>
-               <NavDropdown title=
-               {this.state.foto ? (
-                <>
-                <img
-                    alt="Foto"
-                    width="30"
-                    className="rounded-circle"
-                    src={this.state.url+this.state.foto} />
-                </>
-                    ) : (
-                <>
-                <img
-                    alt="Foto"
-                    width="30"
-                    className="rounded-circle"
-                    src={this.state.url+'no-avatar.png'} />
-                </>
-                )} id="basic-nav-dropdown" alignRight>
-                <NavDropdown.Item>{this.state.email}</NavDropdown.Item>
-                <Link href="/admin/password" passHref><NavDropdown.Item><FaKey/> Ganti Password</NavDropdown.Item></Link>
-                <NavDropdown.Item onClick={this.Logout} href=''><FaSignOutAlt/> Logout</NavDropdown.Item>
-                </NavDropdown>
-                </NavItem>
-                </Nav>
-                </>
-                }
+    <>
+    <Form inline>
+    <Link href="/login" passHref><Button className="text-light" variant="link"><FaSignInAlt/> Login</Button></Link>
+    </Form>
+    
+    </>
+    :
+    <>
+    <ul id="nav" className="navbar-nav ms-auto">
+    
+    <NavDropdown title=
+    {this.state.foto ? (
+    <>
+    <img
+        alt="Foto"
+        width="30"
+        className="rounded-circle"
+        src={this.state.url+this.state.foto} />
+    </>
+        ) : (
+    <>
+    <img
+        alt="Foto"
+        width="30"
+        className="rounded-circle"
+        src={this.state.url+'no-avatar.png'} />
+    </>
+    )} id="basic-nav-dropdown" alignRight>
+    <NavDropdown.Item>{this.state.email}</NavDropdown.Item>
+    <NavDropdown.Item><Link href="/admin/password" passHref><a><FaKey/> Ganti Password</a></Link></NavDropdown.Item>
+    <NavDropdown.Item onClick={this.Logout} href=''><FaSignOutAlt/> Logout</NavDropdown.Item>
+    </NavDropdown>
+    </ul>
+    </>
+    }
     
   </Navbar.Collapse>
   </Container>

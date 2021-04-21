@@ -28,7 +28,7 @@ class Detail extends Component {
     }
 } 
 static async getInitialProps ({ query }) {
-  const id = query.id
+  const id = query.slug
   return {
     id: id
   }
@@ -81,13 +81,12 @@ static async getInitialProps ({ query }) {
         <title>{title} - {siteTitle}</title>
       </Head>
 
+      
+      <main className="blog-section py-3">
       <Container>
-      <main className="py-3">
-     
       
       <Row>
         
-        <Col md={12}>
         { this.state.loading ?
           <>
             <Skeleton count={4} height={40} className="mb-1" />
@@ -95,23 +94,40 @@ static async getInitialProps ({ query }) {
           </>
         :
         <>
-        <h1>{title}</h1>
-        Posted date: {date} - Category: <Link href={"/tag/"+category} passHref>{category}</Link> - By: {user}
+        <h1 className="h2 fw-bolder">{title}</h1>
         <hr/>
-        {image && <img src={url+image} className="mb-3 img-fluid" alt={'gambar_'+title} />}
+        <Col md={8}>
+        <div className="single-blog blog-style-2">
+        <div className="blog-img blog-img-2 mb-1">
+        {image && <img src={url+image} className="img-fluid" alt={'gambar_'+title} />}
+        </div>
+        <p className="mb-3">Tanggal: {date} - Kategori: <Link href={"/tag/"+category} passHref>{category}</Link> - Penulis: {user}</p>
+        <div className="blog-content">
         {parse(body)}
+        </div>
+        </div>
         <hr/>
+
         <h3>Komentar</h3>
         {ListComment}
         <hr/>
         <FormComment postID={this.state.post_id}/>
-        </>
-        }           
         </Col>
-      </Row>
+                
 
+        <Col md={4}>
+        <div className="sidebar-box catagories-box mb-3">
+        <h4>Kategori</h4>
+
+        </div>
+
+        </Col>
+        </>
+      } 
+      </Row>
+      </Container>
   </main>
-  </Container>
+
     </Layout>
   );
 }

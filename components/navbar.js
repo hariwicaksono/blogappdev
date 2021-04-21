@@ -46,36 +46,36 @@ componentDidMount = () => {
 
   render(){
 
-    return(
-     
-<Navbar bg="light" className="shadow-sm border-bottom py-2" expand="lg" sticky="top">
-<Container>
+    return(  
+      <>   
+    <Navbar sticky="top" bg="light" className="shadow-sm border-bottom py-3" expand="lg" >
+    <Container>
 
-  <Link href="/" passHref><Navbar.Brand>{ this.state.loading ?<><Skeleton width={180} height={25} /></>:<>{this.props.setting.company}</>}</Navbar.Brand></Link>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="me-auto">
-    <Link href="/" passHref><Nav.Link>Home</Nav.Link></Link>
-      <Link href="/blog" passHref><Nav.Link>Blog</Nav.Link></Link>
-      {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">
-        <Link href="#" passHref><NavDropdown.Item>Action</NavDropdown.Item></Link>
-        <Link href="#" passHref><NavDropdown.Item>Another action</NavDropdown.Item></Link>
-        <Link href="#" passHref><NavDropdown.Item>Something</NavDropdown.Item></Link>
-        <NavDropdown.Divider />
-        <Link href="#" passHref><NavDropdown.Item>Separated link</NavDropdown.Item></Link>
-      </NavDropdown>*/}
-    </Nav>
+      <Link href="/" passHref><Navbar.Brand>{ this.state.loading ?<><Skeleton width={180} height={25} /></>:<>{this.props.setting.company}</>}</Navbar.Brand></Link>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav" className="sub-menu-bar">
+        <ul className="navbar-nav me-auto">
+        <li className="nav-item"><Link href="/" passHref><a className="nav-link">Home</a></Link></li>
+        <li className="nav-item"><Link href="/blog" passHref><a className="nav-link">Blog</a></Link></li>
+          {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <Link href="#" passHref><NavDropdown.Item>Action</NavDropdown.Item></Link>
+            <Link href="#" passHref><NavDropdown.Item>Another action</NavDropdown.Item></Link>
+            <Link href="#" passHref><NavDropdown.Item>Something</NavDropdown.Item></Link>
+            <NavDropdown.Divider />
+            <Link href="#" passHref><NavDropdown.Item>Separated link</NavDropdown.Item></Link>
+          </NavDropdown>*/}
+        </ul>
 
-    <SearchForm/>
-    
-    <Form inline>
-    <Link href="/login" passHref><Button variant="primary"><FaSignInAlt/> Login</Button></Link>
-    </Form>
-    
-  </Navbar.Collapse>
-  </Container>
-</Navbar>
-     
+        <SearchForm/>
+        
+        <Form inline>
+        <Link href="/login" passHref><Button variant="primary"><FaSignInAlt/> Login</Button></Link>
+        </Form>
+        
+      </Navbar.Collapse>
+      </Container>
+    </Navbar> 
+    </>
     );
   }
 }
