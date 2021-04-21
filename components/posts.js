@@ -13,27 +13,30 @@ class Posts extends Component {
         this.state={
             url : ImagesUrl(),
             offset: 0,
-            perPage: 8,
+            perPage: 4,
             currentPage: 0
         }
         this.handlePageClick = this.handlePageClick.bind(this);
     } 
 
-   
+    
     getHandler = () => {
        
                 const slice = this.props.data.slice(this.state.offset, this.state.offset + this.state.perPage)
                 const ListPost = slice.map((post, key) => (
-                <Row className="mb-3" key={post.id}>
-                    <Col md={4}>
-                    <img src={this.state.url+post.post_image} alt={post.title} className="img-fluid" />
+                    <Col md={3} lg={3} xl={3} key={post.id}>
+                        <div className="single-blog" data-aos="fade-down" data-aos-easing="linear" data-aos-delay="50">
+                        <div className="blog-img">
+                        <img src={this.state.url+post.post_image} alt={post.title} className="img-fluid" />
+                        <span class="date-meta">{post.created_at}</span>
+                        </div>
+                        <small className="text-muted">Posted in: <Link href={"/tag/"+post.category} passHref><a>{post.category}</a></Link></small>
+                        <div className="blog-content">
+                        <h4><Link href={"/blog/posts/"+post.id} passHref><a>{post.title}</a></Link></h4>
+                        {parse(post.summary, { trim: true })}
+                        </div>
+                        </div>
                     </Col>
-                <Col md={6} >
-                <small className="text-muted">Posted on: {post.created_at} in <Link href={"/tag/"+post.category} passHref><a>{post.category}</a></Link></small>
-                <h3 className="mb-2"><Link href={"/blog/posts/"+post.id} passHref><a>{post.title}</a></Link></h3>
-                {parse(post.summary, { trim: true })}
-                </Col>
-                </Row>
                 ))
 
                 this.setState({
@@ -62,9 +65,9 @@ class Posts extends Component {
     render() {
         return (
             <>
-           
+           <Row className="mb-3" >
             {this.state.ListPost}
-  
+            </Row>
             <div className="py-3">
                 <ReactPaginate
                 containerClassName="pagination"

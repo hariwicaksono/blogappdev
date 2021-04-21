@@ -49,11 +49,11 @@ class SearchForm extends Component {
 
         return (
            
-                <Form className="mr-3 my-auto w-75" onSubmit={this.handlerSubmit}>
-                <div className="input-group">
-                    <Form.Control className="border py-3" type="text" name="query" placeholder="Cari Blog..." onChange={this.handlerChange} required/>
-                    <span className="input-group-append">
-                    <Button className="border text-secondary py-1" type="submit" variant="light">
+                <Form className="search-form pe-3" onSubmit={this.handlerSubmit}>
+
+                    <Form.Control type="text" name="query" placeholder="Search" onChange={this.handlerChange} required/>
+            
+                    <Button variant="light" type="submit" style={{top:'10px',right:'25px'}}>
                     {
                         this.state.loading
                         ?
@@ -61,9 +61,6 @@ class SearchForm extends Component {
                         :   
                     <><FaSearch size="1.2em" /></>}
                     </Button>
-                </span>
-
-                </div>
 
                 {this.state.results.length > 0 && (
                 

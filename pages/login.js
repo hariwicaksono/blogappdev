@@ -30,9 +30,7 @@ class Login extends Component {
 
       <main className="auth">
       <header className="auth-header">
-        <h2>
-        <span>{siteName}</span>
-        </h2>
+        <h2 className="mb-3 text-light">{siteName}</h2>
         {/*<p>Belum punya akun? <a href="auth-signup.html">Daftar</a>
         </p>*/}
       </header>
@@ -60,17 +58,17 @@ class Login extends Component {
         >
         {({handleSubmit,handleChange,handleBlur,values,touched,errors,isSubmitting}) => (
     <Form noValidate onSubmit={handleSubmit} className="auth-form pb-4">
-        <Form.Group>
+        <Form.Group className="mb-3">
             <Form.Label className="text-left">Email</Form.Label>
             <Form.Control type="text" name="username" placeholder="your@email.com" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.username} isInvalid={!!errors.username && touched.username} />
             {errors.username && touched.username && <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>}
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3">
             <Form.Label className="text-left">Password</Form.Label>
             <Form.Control type="password" name="password" placeholder="Password" className="form-control" onChange={handleChange} onBlur={handleBlur} isInvalid={!!errors.password && touched.password} />
             {errors.password && touched.password && <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>}
         </Form.Group>
-
+        
         <Button block variant="primary" type="submit" disabled={isSubmitting}>
         {isSubmitting ? (
         <>
@@ -80,6 +78,7 @@ class Login extends Component {
         <>Masuk</>
         )}
         </Button>
+        
         {/*<div className="text-center pt-3 pb-4">
           <a href="auth-recovery-username.html" className="link">Daftar akun</a> <span className="mx-2">·</span> <a href="auth-recovery-password.html" className="link">Lupa Password?</a>
         </div>*/}

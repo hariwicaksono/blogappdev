@@ -41,20 +41,23 @@ class Index extends Component{
         <title>Home - {siteTitle}</title>
       </Head>
 
-      <main className="py-3">
-        <Container>
-        <Alert variant="success">
-          <small><h1 className="h5"><FaExclamationTriangle/> Informasi</h1>Selamat Datang di <strong>React Next.js App</strong> {this.props.setting.company}. Informasi lebih lanjut hubungi Telp/WA di {this.props.setting.phone} atau {this.props.setting.email}</small>
-          </Alert>
-        <Slideshow data={this.state.Slideshow} /> 
+      <main>
+        <Slideshow data={this.state.Slideshow} data-aos="fade-down" /> 
         
+        <Container>
+        <Alert variant="info" className="mb-3">
+          <small><h1 className="h5"><FaExclamationTriangle/> Informasi</h1>Selamat Datang di <strong>React Next.js App</strong> {this.props.setting.company}. Informasi lebih lanjut hubungi Telp/WA di {this.props.setting.phone} atau {this.props.setting.email}</small>
+        </Alert>
+
         <Row>
           <Col md="12">
-          <h1>Blog</h1>
+          <h1 className="mb-3 h2" data-aos="fade-down">Posting Blog Terbaru</h1>
           { this.state.loading ?
           <Loader options={options} className="spinner" />
           :
+            <section id="blog" className="blog-section">
             <Blog data={this.state.Posts} />
+            </section>
           }
           </Col>
         </Row>

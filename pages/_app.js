@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/globals.css';
+import '../styles/global.css';
+import '../styles/main.css';
 import 'spin.js/spin.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import API from '../libs/axios';
+
 
 class MyApp extends Component {
   constructor(props){
@@ -17,6 +21,7 @@ class MyApp extends Component {
  
 
   componentDidMount = () => {
+    AOS.init();
     API.GetSetting().then(res=>{
       this.setState({
           Pengaturan: res.data[0]

@@ -22,7 +22,7 @@ class Slideshow extends Component {
 
         ))
         return (
-            <Carousel className="mb-3">
+            <Carousel className="mb-3" fade data-bs-ride="carousel" prevLabel="" nextLabel="">
                 {ListSlideshow}
             </Carousel>
         )

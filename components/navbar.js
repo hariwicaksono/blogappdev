@@ -48,13 +48,13 @@ componentDidMount = () => {
 
     return(
      
-<Navbar bg="primary" variant="dark" className="shadow border-bottom py-3" expand="lg" sticky="top">
+<Navbar bg="light" className="shadow-sm border-bottom py-2" expand="lg" sticky="top">
 <Container>
 
   <Link href="/" passHref><Navbar.Brand>{ this.state.loading ?<><Skeleton width={180} height={25} /></>:<>{this.props.setting.company}</>}</Navbar.Brand></Link>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
+    <Nav className="me-auto">
     <Link href="/" passHref><Nav.Link>Home</Nav.Link></Link>
       <Link href="/blog" passHref><Nav.Link>Blog</Nav.Link></Link>
       {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -65,10 +65,11 @@ componentDidMount = () => {
         <Link href="#" passHref><NavDropdown.Item>Separated link</NavDropdown.Item></Link>
       </NavDropdown>*/}
     </Nav>
+
     <SearchForm/>
     
     <Form inline>
-    <Link href="/login" passHref><Button className="text-light" variant="link"><FaSignInAlt/> Login</Button></Link>
+    <Link href="/login" passHref><Button variant="primary"><FaSignInAlt/> Login</Button></Link>
     </Form>
     
   </Navbar.Collapse>
