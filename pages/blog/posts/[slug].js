@@ -45,6 +45,7 @@ static async getInitialProps ({ query }) {
           setTimeout(() => this.setState({
                 id: res.data[0].id,
                 title : res.data[0].title,
+                slug : res.data[0].slug,
                 body: res.data[0].body,
                 image: res.data[0].post_image,
                 date: res.data[0].created_at,
@@ -75,7 +76,7 @@ static async getInitialProps ({ query }) {
         
 }
   render() {
-  const {title,body,image,date,category,user,url} = this.state;
+  const {id,title,body,image,date,category,user,url} = this.state;
   const ListComment= this.state.Comments.map((c, i) => (
     <Card className="mb-1" key={i} body>
 			<h6 className="mb-0">{c.body} [by <strong>{c.name}</strong>]</h6>
@@ -107,7 +108,7 @@ static async getInitialProps ({ query }) {
         :
         <>
         <div>
-        <h1 className="h2 fw-bolder">{title}</h1>
+        <h1 className="fw-bold">{title}</h1>
         </div>
         <hr/>
         <Col md={8}>
@@ -125,7 +126,7 @@ static async getInitialProps ({ query }) {
         <h3>Komentar</h3>
         {ListComment}
         <hr/>
-        <FormComment postID={this.state.post_id}/>
+        <FormComment postID={this.state.postid}/>
         </Col>
                 
 

@@ -132,7 +132,7 @@ const CountBlog = () => GET('countblog');
 const CountCategory = () => GET('countcategory');
 const SearchBlog = (data) => SEARCH('search?id=',data);
 const GetComment = () => GET('comment');
-const GetCommentId = (data) => GET_ID('comment?id=',data)
+const GetCommentId = (data) => GET_ID('comment/',data)
 const PostComment = (data) => POST('comment',data);
 const PutComment = (data) => PUT('comment',data);
 const CountComment = () => GET('countcomment');
