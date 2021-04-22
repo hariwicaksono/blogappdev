@@ -36,7 +36,7 @@ class Posts extends Component {
                         <Card.Text>
                         {parse(post.summary, { trim: true })}
                         </Card.Text>
-                        <Link href={"/tag/"+post.category} passHref><a><span className="badge bg-info text-dark">{post.category}</span></a></Link>
+                        <Link href={"/tag/"+post.category} passHref><a><span className="badge bg-secondary text-light">{post.category}</span></a></Link>
                         </Card.Body>
                         </Card>
                     </Col>

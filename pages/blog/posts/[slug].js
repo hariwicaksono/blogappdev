@@ -22,6 +22,7 @@ class Detail extends Component {
         category: '',
         user: '',
         Comments: [],
+        allCategory: [],
         url: ImagesUrl(),
         loading: true
         
@@ -62,6 +63,12 @@ static async getInitialProps ({ query }) {
                 error: "No Data Found"
             })
         }
+        API.GetCategory().then(res=>{
+          console.log(res)
+          this.setState({
+            allCategory: res.data
+            })
+        })
         }).catch(err => {
           console.log(err.response)
       })
@@ -73,6 +80,11 @@ static async getInitialProps ({ query }) {
     <Card className="mb-1" key={i} body>
 			<h6 className="mb-0">{c.body} [by <strong>{c.name}</strong>]</h6>
 		</Card>
+         
+  ))
+  const ListCategory= this.state.allCategory.map((ct, i) => (
+    <Link href={"/tag/"+ct.name} passHref><a><span className="badge bg-secondary text-light me-2" key={i}>{ct.name}</span></a>
+    </Link>
          
   ))
   return (
@@ -94,7 +106,9 @@ static async getInitialProps ({ query }) {
           </>
         :
         <>
+        <div>
         <h1 className="h2 fw-bolder">{title}</h1>
+        </div>
         <hr/>
         <Col md={8}>
         <div className="single-blog blog-style-2">
@@ -118,7 +132,7 @@ static async getInitialProps ({ query }) {
         <Col md={4}>
         <div className="sidebar-box catagories-box mb-3">
         <h4>Kategori</h4>
-
+          {ListCategory}
         </div>
 
         </Col>
