@@ -22,10 +22,18 @@ class CommentModel extends Model
 
     public function getComment($id = false)
     {
+        $db      = \Config\Database::connect();
         if($id === false){
             return $this->findAll();
         } else {
-            return $this->getWhere(['post_id' => $id, 'active' => 'true'])->getResultArray();
+            $builder = $db->table('comments c');
+            $builder->select('c.*, p.slug');
+            $builder->join('posts p', 'p.id = c.post_id');
+            $builder->where('c.post_id', $id);
+            $builder->orWhere('p.slug', $id);
+            $builder->where('c.active', 'true');
+            $query = $builder->get();
+            return $query->getResultArray();
         }  
     }
      

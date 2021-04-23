@@ -90,7 +90,7 @@ class Blog extends Component {
                                 foto: values.foto.name
                             }
                         ).then(res=>{
-                            if (res.status === 1 ) {
+                            if (res.status == '201' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                window.location.href = '/admin/blog';
                             }  
@@ -170,7 +170,7 @@ class Blog extends Component {
                                 foto: values.foto.name
                             }
                         ).then(res=>{
-                            if (res.status === 1 ) {
+                            if (res.status == '201' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                setTimeout(() => {
                                 window.location.href = '/admin/blog';
@@ -262,7 +262,7 @@ class Blog extends Component {
                                 alert('Apakah anda yakin akan mengubah data ini?');
                                 API.PutBlogCategory(values).then(res=>{
                                   //console.log(res)
-                                  if (res.status === 1 ) {
+                                  if (res.status == '200' ) {
                                     toast.success("Data berhasil disimpan", {position: "top-center"});
                                   } 
                                   
@@ -288,8 +288,7 @@ class Blog extends Component {
                                 isSubmitting
                             }) => (
                         <Form onChange={handleSubmit}>
-                            <Form.Control as="select" name="category_id" onChange={handleChange} defaultValue={row.category_id} onBlur={handleBlur} size="sm">
-                            <option value="">Choose Category</option>
+                            <Form.Control as="select" name="category_id" className="form-select form-select-sm" onChange={handleChange} defaultValue={row.category_id} onBlur={handleBlur} size="sm" >
                             {this.state.Category.map((b, i) => (<option value={b.id} key={i}>{isSubmitting ? 
                            "menunggu.." : b.name}</option>))}
  
@@ -315,13 +314,14 @@ class Blog extends Component {
                     }),
                     Dialog.OKAction(() => {
                       API.DeleteBlog(row.id).then(res => {
-                        if (res.status === 1) {
+                        if (res.status == '200') {
                             toast.success("Hapus data berhasil", {position: "top-center"});
                             setTimeout(() => {
-                              Router.push('/admin/blog');
-                              }, 2000);
+                              Router.reload()
+                              }, 4000);
+                              
                         } else {
-                            console.log('gagal')
+                            console.log(res)
                         }
                       })
                     })
@@ -428,7 +428,7 @@ class Blog extends Component {
     
       return (
         <DataTable
-          title="Semua Blog Post"
+          title="Semua Posting Blog"
           columns={columns}
           data={filteredItems}
           pagination

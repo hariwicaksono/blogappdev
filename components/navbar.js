@@ -48,15 +48,15 @@ componentDidMount = () => {
 
     return(  
       <>   
-    <Navbar sticky="top" bg="light" className="shadow-sm border-bottom py-3" expand="lg" >
+    <Navbar sticky="top" bg="light" className="shadow-sm border-bottom py-2" expand="md" >
     <Container>
 
       <Link href="/" passHref><Navbar.Brand>{ this.state.loading ?<><Skeleton width={180} height={25} /></>:<>{this.props.setting.company}</>}</Navbar.Brand></Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="sub-menu-bar">
         <ul className="navbar-nav me-auto">
-        <li className="nav-item"><Link href="/" passHref><a className="nav-link">Home</a></Link></li>
-        <li className="nav-item"><Link href="/blog" passHref><a className="nav-link">Blog</a></Link></li>
+        <li><Link href="/" passHref><a className="nav-link">Home</a></Link></li>
+        <li><Link href="/blog" passHref><a className="nav-link">Blog</a></Link></li>
           {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <Link href="#" passHref><NavDropdown.Item>Action</NavDropdown.Item></Link>
             <Link href="#" passHref><NavDropdown.Item>Another action</NavDropdown.Item></Link>

@@ -30,7 +30,7 @@ class Login extends Component {
 
       <main className="auth">
       <header className="auth-header">
-        <h2 className="mb-3 text-light">{siteName}</h2>
+        <h2 className="mb-3 text-light">Login</h2>
         {/*<p>Belum punya akun? <a href="auth-signup.html">Daftar</a>
         </p>*/}
       </header>

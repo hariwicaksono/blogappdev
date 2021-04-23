@@ -53,7 +53,7 @@ class SearchForm extends Component {
 
                     <Form.Control type="text" name="query" placeholder="Search" onChange={this.handlerChange} required/>
             
-                    <Button variant="outline-secondary" type="submit">
+                    <Button variant="light" type="submit">
                     {
                         this.state.loading
                         ?

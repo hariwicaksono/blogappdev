@@ -8,7 +8,7 @@ class BlogCategory extends ResourceController
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
 
-    public function update($id = null)
+    public function update($id = null) 
     {
         if ($this->request)
         {
@@ -35,7 +35,29 @@ class BlogCategory extends ResourceController
                     return $this->respond($response, 404);
                 }
                 
-            }
+            } /**else {
+                //get request from PostMan and more
+                $input = $this->request->getRawInput();
+                $data = [
+                    'category_id' => $input['category_id']
+                ];
+    
+                if ($data > 0) {
+                    $this->model->update($id, $data);
+    
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }      
+            }**/
         }
 
 

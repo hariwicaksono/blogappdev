@@ -45,29 +45,35 @@ class Comment extends ResourceController
 
     public function create()
     {
-        
-        $data = [
-            'post_id' => $this->request->getPost('post_id'),
-            'name' => $this->request->getPost('name'),
-            'email' => $this->request->getPost('email'),
-            'body' => $this->request->getPost('body'),
-            'active' => '',
-            'created_at' => date("Y-m-d H:i:s")
-        ];
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                $input = $this->request->getJSON();
+                $data = [
+                    'post_id' => $input->post_id,
+                    'name' => $input->name,
+                    'email' => $input->email,
+                    'body' => $input->body,
+                    'active' => '',
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
 
-        if ($data > 0) {
-            $this->model->save($data);
-            $response = [
-                'status' => '201',
-                'data' => 'Success Post Data'
-            ];
-            return $this->respond($response, 201);
-        } else {
-            $response = [
-                'status' => '422',
-                'data' => 'Failed Post Data'
-            ];
-            return $this->respond($response, 422);
+                if ($data > 0) {
+                    $this->model->save($data);
+                    $response = [
+                        'status' => '201',
+                        'data' => 'Success Post Data'
+                    ];
+                    return $this->respond($response, 201);
+                } else {
+                    $response = [
+                        'status' => '422',
+                        'data' => 'Failed Post Data'
+                    ];
+                    return $this->respond($response, 422);
+                }
+            }
         }
     }
 

@@ -45,7 +45,7 @@ class FormComment extends Component {
                         </>
                         :
                         <>
-                      
+                       
                         <Card className="mb-2" body>
                             <h5 className="mb-3" style={{fontWeight: '400'}}>Tambah Komentar</h5>
                             <Formik
@@ -60,7 +60,7 @@ class FormComment extends Component {
                                 
                                 API.PostComment(values).then(res=>{
                                     //console.log(res)
-                                    if (res.status === 1 ) {
+                                    if (res.status == '201' ) {
                                         toast.success("Komentar berhasil disimpan, menunggu persetujuan admin untuk ditampilkan", {position: "top-center"}); 
                                         setTimeout(() => { 
                                             Router.reload();

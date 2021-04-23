@@ -10,7 +10,7 @@ class SettingModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['brand', 'company', 'website', 'phone', 'email', 'updated_at'];
+    protected $allowedFields = ['brand', 'company', 'website', 'phone', 'email', 'landing_intro', 'landing_img', 'theme','updated_at'];
     protected $useTimestamps = false;
     protected $updatedField  = 'updated_at';
 

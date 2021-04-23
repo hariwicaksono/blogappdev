@@ -84,7 +84,7 @@ static async getInitialProps ({ query }) {
          
   ))
   const ListCategory= this.state.allCategory.map((ct, i) => (
-    <Link href={"/tag/"+ct.name} passHref><a><span className="badge bg-secondary text-light me-2" key={i}>{ct.name}</span></a>
+    <Link href={"/tag/"+ct.name} passHref><a key={i}><span className="badge bg-secondary text-light me-2">{ct.name}</span></a>
     </Link>
          
   ))
@@ -126,7 +126,7 @@ static async getInitialProps ({ query }) {
         <h3>Komentar</h3>
         {ListComment}
         <hr/>
-        <FormComment postID={this.state.postid}/>
+        <FormComment postID={id}/>
         </Col>
                 
 

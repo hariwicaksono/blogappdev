@@ -97,7 +97,7 @@ static async getInitialProps ({ query }) {
                                 
                                     API.PutBlog(values).then(res=>{
                                       //console.log(res)
-                                      if (res.status === 1 ) {
+                                      if (res.status == '200' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                       } 
                                        
@@ -124,17 +124,17 @@ static async getInitialProps ({ query }) {
                                 isSubmitting
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
-                          <Form.Group>
+                          <Form.Group className="mb-3">
                           <Form.Label>Gambar</Form.Label><br/>
                              <img src={this.state.url+this.state.image} width="200" alt="" />
                           </Form.Group>
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Judul Blog</Form.Label>
                                 <Form.Control name="title" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.title} isInvalid={!!errors.title && touched.title} />
                                 {errors.title && touched.title && <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>}
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                             <Row>
                             <Col>
                                 <Form.Label>Tanggal</Form.Label>
@@ -149,7 +149,7 @@ static async getInitialProps ({ query }) {
                             </Row>
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Ringkasan</Form.Label>
                                 <Editor 
                                 apiKey="vffx7rg47lbz69xfs80qajyt04jjsxtihahl5gp1rsek0vnt" 
@@ -161,7 +161,7 @@ static async getInitialProps ({ query }) {
                                 {errors.summary && touched.summary && <Form.Control.Feedback type="invalid">{errors.summary}</Form.Control.Feedback>}
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Isi Blog</Form.Label>
 
                                 <Editor 

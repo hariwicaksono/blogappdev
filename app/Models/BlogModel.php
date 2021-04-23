@@ -27,7 +27,7 @@ class BlogModel extends Model
         if($id === false){
             $builder = $db->table('posts p');
             $builder->select('p.*, c.name as category, u.name as user');
-            $builder->join('categories c', 'c.id = p.category_id');
+            $builder->join('categories c', 'c.id = p.category_id','left');
             $builder->join('users u', 'u.id = p.user_id');
             $builder->orderBy('p.id', 'DESC');
             $query = $builder->get();
@@ -38,7 +38,7 @@ class BlogModel extends Model
             $builder->join('categories c', 'c.id = p.category_id');
             $builder->join('users u', 'u.id = p.user_id');
             $builder->where('p.id', $id);
-            $builder->orderBy('p.id', 'DESC');
+            $builder->orWhere('p.slug', $id);
             $query = $builder->get();
             return $query->getResultArray();
         }  

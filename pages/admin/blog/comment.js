@@ -72,12 +72,10 @@ class Comment extends Component {
                             }}
                             onSubmit={(values, actions) => {
                                 alert('Apakah anda yakin akan mengubah data ini?');
-                                //alert(JSON.stringify({
-                                  //active: values.active,
-                                  //}));
+                                alert(JSON.stringify(values));
                                 API.PutComment({id: values.id, active: values.active ? 'true':''}).then(res=>{
                                   //console.log(res)
-                                  if (res.status === 1 ) {
+                                  if (res.status == '200' ) {
                                     toast.success("Data berhasil disimpan", {position: "top-center"});
                                   } 
                                   
@@ -106,7 +104,11 @@ class Comment extends Component {
                             }) => (
                         <Form onChange={handleSubmit}>
                           <Form.Group>
-                          <Form.Check type="switch" id={"custom-switch"+row.id} name="active" value={values.active} label="Aktifkan?" defaultChecked={row.active} onChange={handleChange} onBlur={handleBlur} checked={values.active} />
+                          <div className="form-check form-switch">
+                          <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="active" value={values.active} defaultChecked={row.active} onChange={handleChange} onBlur={handleBlur} checked={values.active} />
+                          <label className="form-check-label" for="flexSwitchCheckDefault">Aktifkan?</label>
+                        </div>
+                          
                           </Form.Group>
                             {/*<Form.Control as="select" name="active" onChange={handleChange} defaultValue={row.active} onBlur={handleBlur} size="sm">
                             <option value="1" >{isSubmitting ? 
