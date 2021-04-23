@@ -12,7 +12,7 @@ class CountBlog extends ResourceController
 	{
         $count = $this->model->count_blog();
         $data = [
-            'status' => '1',
+            'status' => '200',
             'data' => $count
         ];
 

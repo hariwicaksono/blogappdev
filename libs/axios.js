@@ -102,7 +102,7 @@ const POST_FOTO = (path,data,name) => {
 
 const PostLogin = (data) => POST('auth',data);
 const GetBlog = () => GET('blog');
-const GetBlogId = (data) => GET_ID('blog?id=',data)
+const GetBlogId = (data) => GET_ID('blog/find?id=',data)
 const PostBlog = (data) => POST('blog',data);
 const PutBlog = (data) => PUT('blog',data);
 const PutBlogCategory = (data) => PUT('blogcategory',data);
@@ -111,32 +111,32 @@ const PutBlogImage = (data) => PUT('blogimage',data);
 const GetSetting = () => GET('setting');
 const PutSetting = (data) => PUT('setting',data);
 const GetUser = () => GET('user');
-const GetUserId = (data) => GET_ID('user?id=',data)
+const GetUserId = (data) => GET_ID('user/find?id=',data)
 const PostUser = (data) => POST('user',data);
 const PutUser = (data) => PUT('user',data);
 const PutUserPass = (data) => PUT('userpassword',data);
 const DeleteUser = (id) => DELETE('user/delete/?id=',id);
 const GetSlideshow = () => GET('slideshow');
-const GetSlideshowId = (data) => GET_ID('slideshow?id=',data)
+const GetSlideshowId = (data) => GET_ID('slideshow/find?id=',data)
 const PostSlideshow = (data) => POST('slideshow',data);
 const PutSlideshow = (data) => PUT('slideshow',data);
 const DeleteSlideshow = (id) => DELETE('slideshow/delete/?id=',id);
 const PutSlideshowImage = (data) => PUT('slideshowimage',data);
 const GetCategory = () => GET('category');
-const GetCategoryId = (data) => GET_ID('category?id=',data)
+const GetCategoryId = (data) => GET_ID('category/find?id=',data)
 const PostCategory = (data) => POST('category',data);
 const PutCategory = (data) => PUT('category',data);
 const DeleteCategory = (id) => DELETE('category/delete/?id=',id);
 const PostFoto = (data,name) => POST_FOTO('imageupload',data,name);
 const CountBlog = () => GET('countblog');
 const CountCategory = () => GET('countcategory');
-const SearchBlog = (data) => SEARCH('search?id=',data);
+const SearchBlog = (data) => SEARCH('search/find?id=',data);
 const GetComment = () => GET('comment');
-const GetCommentId = (data) => GET_ID('comment/',data)
+const GetCommentId = (data) => GET_ID('comment/find?id=',data)
 const PostComment = (data) => POST('comment',data);
 const PutComment = (data) => PUT('comment',data);
 const CountComment = () => GET('countcomment');
-const GetTag = (data) => GET_ID('tag?category=',data)
+const GetTag = (data) => GET_ID('tag/find?category=',data)
 
 const API = {
     PostLogin,

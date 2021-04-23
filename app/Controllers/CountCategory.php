@@ -12,7 +12,7 @@ class CountCategory extends ResourceController
 	{
         $count = $this->model->count_category();
         $data = [
-            'status' => '1',
+            'status' => '200',
             'data' => $count
         ];
 

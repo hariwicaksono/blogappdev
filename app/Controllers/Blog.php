@@ -11,18 +11,24 @@ class Blog extends ResourceController
 	public function index()
 	{
         $count = $this->model->count_blog();
-		$posts = $this->model->getBlog();
+        $id=$this->request->getVar('id');
 
-        if ($posts) {
+        if ($id == null) {
+			$data = $this->model->getBlog();
+		} else {
+			$data = $this->model->getBlog($id);
+		}
+		
+        if ($data) {
             $response = [
-                'status' => '1',
-                'data' => $posts,
+                'status' => '200',
+                'data' => $data,
                 'allCount' => $count
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '0',
+                'status' => '404',
                 'data' => 'Data Not Found'
             ];
             return $this->respond($response, 404);
@@ -32,11 +38,12 @@ class Blog extends ResourceController
     public function show($id = null)
     {
         $data = [
-            'status' => '1',
-            'data' => $this->model->find($id)
+            'status' => '200',
+            'data' => $this->model->getBlog($id)
+            //'data' => $this->model->find($id)
         ];
 
-        return $this->response->setStatusCode(200)->setJSON($data);
+        return $this->respond($data, 200);
     }
 
     public function create()
@@ -57,13 +64,13 @@ class Blog extends ResourceController
         if ($data > 0) {
             $this->model->save($data);
             $response = [
-                'status' => '1',
+                'status' => '201',
                 'data' => 'Success Post Data'
             ];
             return $this->respond($response, 201);
         } else {
             $response = [
-                'status' => '0',
+                'status' => '422',
                 'data' => 'Failed Post Data'
             ];
             return $this->respond($response, 422);
@@ -73,7 +80,6 @@ class Blog extends ResourceController
     public function update($id = null)
     {
         if ($this->model->find($id)) {
-
             $input = $this->request->getRawInput();
             $data = [
                 'title' => $input['title'],
@@ -88,62 +94,69 @@ class Blog extends ResourceController
                 $this->model->update($id, $data);
 
                 $response = [
-                    'status' => '1',
+                    'status' => '200',
                     'data' => 'Success Update data'
                 ];
                 return $this->respond($response, 200);
-            } 
-
-            $response = [
-                'status' => '0',
-                'data' => 'Failed Update Data'
-            ];
-            return $this->respond($response, 422);
+            } else {
+                $response = [
+                    'status' => '404',
+                    'data' => 'Failed Update Data'
+                ];
+                return $this->respond($response, 404);
+            }       
         }
-
-        $response = [
-            'status' => '0',
-            'data' => 'Failed Update Data'
-        ];
-        return $this->respond($response, 404);
+        //$response = [
+            //'status' => '0',
+            //'data' => 'Failed Update Data'
+        //];
+        //return $this->respond($response, 404);
     }
 
     public function delete($id = null)
     {
-        if ($this->model->find($id)) {
-
-            $delete = $this->model->delete($id);
-    
-            if ($delete) {
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                if ($this->model->find($id)) {
+                    $delete = $this->model->delete($id);
+                    if ($delete) {
+                        $response = [
+                            'status' => '200',
+                            'data' => 'Success Delete Data'
+                        ];
+                        return $this->respond($response, 200);
+                    } 
+                    //try {
+                        //$this->model->delete($id);
+                        //$response = [
+                            //'status' => '1',
+                            //'data' => 'Success Delete data'
+                        //];
+                        //return $this->respond($response, 200);
+                    //} catch (\Exception $e) {
+                        //$response = [
+                            //'status' => '0',
+                            //'data' => 'Failed Delete Data'
+                        //];
+                        //return $this->respond($response, 422);
+                    //}
+                }
+            } else {
                 $response = [
-                    'status' => '1',
-                    'data' => 'Success Delete data'
+                    'status' => '405',
+                    'data' => 'Data Not Found'
                 ];
-                return $this->respond($response, 200);
-            } 
-
-            try {
-                $this->model->delete($id);
-                $response = [
-                    'status' => '1',
-                    'data' => 'Success Delete data'
-                ];
-                return $this->respond($response, 200);
-            } catch (\Exception $e) {
-                $response = [
-                    'status' => '0',
-                    'data' => 'Failed Delete Data'
-                ];
-                return $this->respond($response, 422);
+                return $this->respond($response, 405);
             }
-            
+        } else {
+            $response = [
+                'status' => '404',
+                'data' => 'Data Not Found'
+            ];
+            return $this->respond($response, 404);
         }
-
-        $response = [
-            'status' => '0',
-            'data' => 'Failed Delete Data'
-        ];
-        return $this->respond($response, 404);
     }
     
 }

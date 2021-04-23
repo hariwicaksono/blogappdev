@@ -20,26 +20,26 @@ class CommentModel extends Model
 
     protected $skipValidation     = true;
 
-    public function getCategory($id = false)
+    public function getComment($id = false)
     {
         if($id === false){
             return $this->findAll();
         } else {
-            return $this->getWhere(['post_id' => $id, 'active' => 'true'])->getRowArray();
+            return $this->getWhere(['post_id' => $id, 'active' => 'true'])->getResultArray();
         }  
     }
      
-    public function insertCategory($data)
+    public function insertComment($data)
     {
         return $this->db->table($this->table)->insert($data);
     }
  
-    public function updateCategory($data, $id)
+    public function updateComment($data, $id)
     {
         return $this->db->table($this->table)->update($data, ['id' => $id]);
     }
  
-    public function deleteCategory($id)
+    public function deleteComment($id)
     {
         return $this->db->table($this->table)->delete(['id' => $id]);
     }

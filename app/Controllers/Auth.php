@@ -12,6 +12,7 @@ class Auth extends ResourceController
     {
         if ($this->request)
         {
+            //get request from Reactjs
             if($this->request->getJSON()) {
                 $json = $this->request->getJSON();
                 $user = $json->username;

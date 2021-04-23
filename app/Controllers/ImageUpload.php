@@ -13,13 +13,13 @@ class ImageUpload extends ResourceController
         if ($gambar !== "") {
             $gambar->move('public/images/', $fileName);
             $response = [
-                'status' => '1',
+                'status' => '201',
                 'data' => 'Image Upload Success'
             ];
             return $this->respond($response, 201);
         } else {
             $response = [
-                'status' => '0',
+                'status' => '422',
                 'data' => 'Failed Upload Data'
             ];
             return $this->respond($response, 422);

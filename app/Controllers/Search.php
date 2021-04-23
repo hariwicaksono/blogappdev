@@ -8,7 +8,7 @@ class Search extends ResourceController
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
     
-    public function show($id = null)
+    public function index()
     {
         $id=$this->request->getVar('id');
 
@@ -20,13 +20,13 @@ class Search extends ResourceController
 		
         if ($search) {
             $response = [
-                'status' => '1',
+                'status' => '200',
                 'data' => $search
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '0',
+                'status' => '404',
                 'data' => 'Data Not Found'
             ];
             return $this->respond($response, 404);

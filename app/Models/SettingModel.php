@@ -16,13 +16,9 @@ class SettingModel extends Model
 
     protected $skipValidation     = true;
 
-    public function getSetting($id = false)
+    public function getSetting($id)
     {
-        if($id === false){
-            return $this->findAll();
-        } else {
-            return $this->getWhere(['id' => $id])->getRowArray();
-        }  
+        return $this->getWhere(['id' => $id])->getResult();  
     }
      
     public function insertSetting($data)

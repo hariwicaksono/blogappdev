@@ -10,16 +10,6 @@ class User extends ResourceController
 
 	public function index()
 	{
-        $data = [
-            'status' => '1',
-            'data' => $this->model->findAll()
-        ];
-
-        return $this->respond($data, 200);
-    }
-    
-    public function show($id = null)
-    {
         $id = $this->request->getVar('id');
         if ($id == null) {
 			$user = $this->model->getUser();
@@ -29,17 +19,28 @@ class User extends ResourceController
 
         if ($user) {
             $response = [
-                'status' => '1',
+                'status' => '200',
                 'data' => $user
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '0',
+                'status' => '404',
                 'data' => 'Data Not Found'
             ];
-            return $this->respond($response, 200);
+            return $this->respond($response, 404);
         }
+    }
+    
+    public function show($id = null)
+    {
+        $data = [
+            'status' => '200',
+            'data' => $this->model->getUser($id)
+            //'data' => $this->model->find($id)
+        ];
+
+        return $this->respond($data, 200);
     }
 
     public function create()
@@ -57,13 +58,13 @@ class User extends ResourceController
 
         if ($this->model->save($data) > 0) {
             $response = [
-                'status' => '1',
+                'status' => '201',
                 'data' => 'Success Post Data'
             ];
             return $this->respond($response, 201);
         } else {
             $response = [
-                'status' => '0',
+                'status' => '422',
                 'data' => 'Failed Post Data'
             ];
             return $this->respond($response, 422);
@@ -85,62 +86,68 @@ class User extends ResourceController
                 $this->model->update($id, $data);
 
                 $response = [
-                    'status' => '1',
+                    'status' => '200',
                     'data' => 'Success Update data'
                 ];
                 return $this->respond($response, 200);
-            } 
-
-            $response = [
-                'status' => '0',
-                'data' => 'Failed Update Data'
-            ];
-            return $this->respond($response, 422);
+            } else { 
+                $response = [
+                    'status' => '404',
+                    'data' => 'Failed Update Data'
+                ];
+                return $this->respond($response, 404);
+            }
         }
-
-        $response = [
-            'status' => '0',
-            'data' => 'Failed Update Data'
-        ];
-        return $this->respond($response, 404);
     }
 
     public function delete($id = null)
     {
-        if ($this->model->find($id)) {
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                if ($this->model->find($id)) {
 
-            $delete = $this->model->delete($id);
-    
-            if ($delete) {
-                $response = [
-                    'status' => '1',
-                    'data' => 'Success Delete data'
-                ];
-                return $this->respond($response, 200);
-            } 
-
-            try {
-                $this->model->delete($id);
-                $response = [
-                    'status' => '1',
-                    'data' => 'Success Delete data'
-                ];
-                return $this->respond($response, 200);
-            } catch (\Exception $e) {
-                $response = [
-                    'status' => '0',
-                    'data' => 'Failed Delete Data'
-                ];
-                return $this->respond($response, 422);
-            }
+                    $delete = $this->model->delete($id);
             
-        }
+                    if ($delete) {
+                        $response = [
+                            'status' => '200',
+                            'data' => 'Success Delete Data'
+                        ];
+                        return $this->respond($response, 200);
+                    } 
 
-        $response = [
-            'status' => '0',
-            'data' => 'Failed Delete Data'
-        ];
-        return $this->respond($response, 404);
+                    //try {
+                        //$this->model->delete($id);
+                        //$response = [
+                            //'status' => '1',
+                            //'data' => 'Success Delete data'
+                        //];
+                        //return $this->respond($response, 200);
+                    //} catch (\Exception $e) {
+                        //$response = [
+                            //'status' => '0',
+                            //'data' => 'Failed Delete Data'
+                        //];
+                        //return $this->respond($response, 422);
+                    //}
+                    
+                }
+            } else {
+                $response = [
+                    'status' => '405',
+                    'data' => 'Data Not Found'
+                ];
+                return $this->respond($response, 405);
+            }
+        } else {
+            $response = [
+                'status' => '404',
+                'data' => 'Data Not Found'
+            ];
+            return $this->respond($response, 404);
+        }
     }
     
 }

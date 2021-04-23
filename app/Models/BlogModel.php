@@ -4,8 +4,6 @@ use CodeIgniter\Model;
 
 class BlogModel extends Model
 {
-    
-
     protected $table = 'posts';
     protected $primaryKey = 'id';
 

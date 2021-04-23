@@ -19,24 +19,24 @@ class SlideshowImage extends ResourceController
 
             if ($this->model->update($id, $data) > 0) {
                 $response = [
-                    'status' => '1',
+                    'status' => '200',
                     'data' => 'Success Update data'
                 ];
                 return $this->respond($response, 200);
-            } 
-
-            $response = [
-                'status' => '0',
-                'data' => 'Failed Update Data'
-            ];
-            return $this->respond($response, 422);
+            } else {
+                $response = [
+                    'status' => '404',
+                    'data' => 'Failed Update Data'
+                ];
+                return $this->respond($response, 404);
+            }
         }
 
-        $response = [
-            'status' => '0',
-            'data' => 'Failed Update Data'
-        ];
-        return $this->respond($response, 404);
+        //$response = [
+            //'status' => '0',
+            //'data' => 'Failed Update Data'
+        //];
+        //return $this->respond($response, 404);
     }
 
 

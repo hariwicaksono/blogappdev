@@ -10,35 +10,35 @@ class BlogCategory extends ResourceController
 
     public function update($id = null)
     {
-        if ($this->model->find($id)) {
-
-            $input = $this->request->getRawInput();
-            $data = [
-                'category_id' => $input['category_id']
-            ];
-
-            if ($data > 0) {
-                $this->model->update($id, $data);
-
-                $response = [
-                    'status' => '1',
-                    'data' => 'Success Update data'
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                $input = $this->request->getJSON();
+                $data = [
+                    'category_id' => $input->category_id
                 ];
-                return $this->respond($response, 200);
-            } 
 
-            $response = [
-                'status' => '0',
-                'data' => 'Failed Update Data'
-            ];
-            return $this->respond($response, 422);
+                if ($data > 0) {
+                    $this->model->update($input->id, $data);
+
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }
+                
+            }
         }
 
-        $response = [
-            'status' => '0',
-            'data' => 'Failed Update Data'
-        ];
-        return $this->respond($response, 404);
+
     }
 
 

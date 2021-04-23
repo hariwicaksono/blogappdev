@@ -12,7 +12,7 @@ class CountComment extends ResourceController
 	{
         $count = $this->model->count_comment();
         $data = [
-            'status' => '1',
+            'status' => '200',
             'data' => $count
         ];
 

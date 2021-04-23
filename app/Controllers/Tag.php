@@ -8,25 +8,25 @@ class Tag extends ResourceController
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
     
-    public function show($id = null)
+    public function index()
     {
         $id=$this->request->getVar('category');
 
         if ($id == null) {
 			return $this->respond(['status' => '0','data'=> 'id tidak boleh kosong']);
 		} else {
-			$search = $this->model->searchTag($id);
+			$data = $this->model->searchTag($id);
 		}
 		
-        if ($search) {
+        if ($data) {
             $response = [
-                'status' => '1',
-                'data' => $search
+                'status' => '200',
+                'data' => $data
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '0',
+                'status' => '404',
                 'data' => 'Data Not Found'
             ];
             return $this->respond($response, 404);
