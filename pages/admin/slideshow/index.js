@@ -49,6 +49,12 @@ class Slideshow extends Component {
           console.log(err.response)
       })
     }  
+
+    reloadData = () => {
+      setTimeout(() => { 
+       this.componentDidMount()
+      }, 1000);
+    }
     
     render() {
       const columns = [
@@ -78,16 +84,21 @@ class Slideshow extends Component {
                                 foto: values.foto.name
                             }
                         ).then(res=>{
-                            if (res.status === 1 ) {
+                            if (res.status == '200' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                setTimeout(() => { 
-                                Router.push('/admin/slideshow');
-                              }, 2000);
-                            }  
-                        })
+                                Router.reload();
+                              }, 4000);
+                            }  else {
+                              toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                          }
+                        }).catch(err => {
+                          console.log(err.response)
+                          toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
+                      })
                         API.PostFoto(values.foto, values.foto.name).then(res => {
-                          console.log('img_ok')
-                          //toast.success("Gambar berhasil disimpan", {position: "top-center"}); 
+                          //console.log('img_ok')
+                          toast.success("Gambar berhasil disimpan", {position: "top-center"}); 
                         })
                         
                         setTimeout(() => {
@@ -108,12 +119,12 @@ class Slideshow extends Component {
                     }) => (
                 <Form onSubmit={handleSubmit}>
                      
-                     <Form.Group>
+                     <Form.Group className="mb-3">
                      <Form.Label>Gambar Slide</Form.Label><br/>
                     <img src={this.state.url+row.img_slide} className="img-fluid" width="200"/>
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                     <Form.Label htmlFor="foto">Upload Gambar</Form.Label>
                     
                     <Form.File className="form-control" name="foto" id="foto" onChange={(event) => 
@@ -161,15 +172,20 @@ class Slideshow extends Component {
                                 foto: values.foto.name
                             }
                         ).then(res=>{
-                            if (res.status === 1 ) {
+                            if (res.status == '200' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                                setTimeout(() => { 
-                                    Router.push('/admin/slideshow');
-                                }, 2000);
-                            }  
+                               setTimeout(() => { 
+                                Router.reload();
+                              }, 4000);
+                            } else {
+                              toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                          } 
+                          }).catch(err => {
+                            console.log(err.response)
+                            toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
                         })
                         API.PostFoto(values.foto, values.foto.name).then(res => {
-                          console.log('img_ok')
+                          //console.log('img_ok')
                           //toast.success("Gambar berhasil disimpan", {position: "top-center"}); 
                         })
                         
@@ -191,12 +207,12 @@ class Slideshow extends Component {
                     }) => (
                 <Form onSubmit={handleSubmit}>
                      
-                     <Form.Group>
+                     <Form.Group className="mb-3">
                      <Form.Label>Gambar Slide</Form.Label><br/>
                     <img src={`${process.env.BASE_PATH}/images/no-image.png`} className="img-fluid" width="200"/>
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                     <Form.Label htmlFor="foto">Upload Gambar</Form.Label>
                     
                     <Form.File className="form-control" name="foto" id="foto" onChange={(event) => 
@@ -254,11 +270,11 @@ class Slideshow extends Component {
                     }),
                     Dialog.OKAction(() => {
                       API.DeleteSlideshow(row.id).then(res => {
-                        if (res.status === 1) {
+                        if (res.status == '200') {
                             toast.success("Hapus data berhasil", {position: "top-center"});
                             setTimeout(() => { 
-                              Router.reload();
-                          }, 2000);
+                              this.reloadData();
+                            }, 4000);
                         } else {
                             console.log('gagal')
                         }

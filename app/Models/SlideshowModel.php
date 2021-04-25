@@ -17,7 +17,7 @@ class SlideshowModel extends Model
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-
+ 
     protected $skipValidation     = true;
 
     public function getSlideshow($id = false)

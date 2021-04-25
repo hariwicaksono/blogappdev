@@ -8,7 +8,7 @@ import Layout, {siteName, siteTitle} from '../../../components/layout';
 import API from '../../../libs/axios';
 import {toast} from 'react-toastify';
 import {Container, Breadcrumb, Card, Row, Col, Spinner, Button, Form} from 'react-bootstrap';
-import { FaTrash, FaPencilAlt, FaUpload} from 'react-icons/fa';
+import { FaTrash, FaPencilAlt, FaUpload, FaCheck} from 'react-icons/fa';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Loader from 'react-loader';
@@ -47,6 +47,12 @@ class Comment extends Component {
       })
 
     }  
+
+    reloadData = () => {
+      setTimeout(() => { 
+       this.componentDidMount()
+      }, 1000);
+    }
     
     render() {
       const columns = [
@@ -72,17 +78,21 @@ class Comment extends Component {
                             }}
                             onSubmit={(values, actions) => {
                                 alert('Apakah anda yakin akan mengubah data ini?');
-                                alert(JSON.stringify(values));
+                                //alert(JSON.stringify(values));
                                 API.PutComment({id: values.id, active: values.active ? 'true':''}).then(res=>{
                                   //console.log(res)
                                   if (res.status == '200' ) {
                                     toast.success("Data berhasil disimpan", {position: "top-center"});
-                                  } 
-                                  
+                                    setTimeout(() => { 
+                                      this.reloadData();
+                                    }, 4000);
+                                  } else {
+                                    toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                }
+                                   
                               }).catch(err => {
                                   console.log(err.response)
                                   toast.warn("Tidak ada data yang diubah", {position: "top-center"});
-
                               })
                                 
                                 setTimeout(() => {
@@ -219,7 +229,7 @@ class Comment extends Component {
     
       return (
         <DataTable
-          title="Semua Komentar"
+          title="Semua Komentar Blog"
           columns={columns}
           data={filteredItems}
           pagination

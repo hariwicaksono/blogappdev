@@ -11,7 +11,7 @@ class ImageUpload extends ResourceController
         $gambar = $this->request->getFile('foto');
         $fileName = $gambar->getName();
         if ($gambar !== "") {
-            $gambar->move('public/images/', $fileName);
+            $gambar->move('images/', $fileName);
             $response = [
                 'status' => '201',
                 'data' => 'Image Upload Success'

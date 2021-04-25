@@ -92,8 +92,15 @@ class Blog extends Component {
                         ).then(res=>{
                             if (res.status == '201' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                               window.location.href = '/admin/blog';
-                            }  
+                                setTimeout(() => { 
+                                    Router.push('/admin/blog');
+                                }, 4000);
+                            }  else {
+                              toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                          }
+                          }).catch(err => {
+                            console.log(err.response)
+                            toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
                         })
                         API.PostFoto(values.foto, values.foto.name).then(res => {
                           console.log('img_ok')
@@ -172,14 +179,19 @@ class Blog extends Component {
                         ).then(res=>{
                             if (res.status == '201' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                               setTimeout(() => {
-                                window.location.href = '/admin/blog';
-                               }, 2000);
-                            }  
-                        })
+                               setTimeout(() => { 
+                                  Router.push('/admin/blog');
+                                }, 4000);
+                            }  else {
+                              toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                          }
+                        }).catch(err => {
+                          console.log(err.response)
+                          toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
+                      })
                         API.PostFoto(values.foto, values.foto.name).then(res => {
-                          console.log('img_ok')
-                          //toast.success("Gambar berhasil disimpan", {position: "top-center"}); 
+                          //console.log('img_ok')
+                          toast.success("Gambar berhasil disimpan", {position: "top-center"}); 
                         })
                         
                         setTimeout(() => {

@@ -10,33 +10,57 @@ class SlideshowImage extends ResourceController
 
     public function update($id = null)
     {
-        if ($this->model->find($id)) {
 
-            $input = $this->request->getRawInput();
-            $data = [
-                'img_slide' => $input['foto']
-            ];
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                $input = $this->request->getJSON();
+                $data = [
+                    'img_slide' => $input->foto
+                ];
 
-            if ($this->model->update($id, $data) > 0) {
-                $response = [
-                    'status' => '200',
-                    'data' => 'Success Update data'
+                if ($data > 0) {
+                    $this->model->update($input->id, $data);
+
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }
+                
+            } /**else {
+                //get request from PostMan and more
+                $input = $this->request->getRawInput();
+                $data = [
+                    'img_slide' => $input['foto']
                 ];
-                return $this->respond($response, 200);
-            } else {
-                $response = [
-                    'status' => '404',
-                    'data' => 'Failed Update Data'
-                ];
-                return $this->respond($response, 404);
-            }
+    
+                if ($data > 0) {
+                    $this->model->update($id, $data);
+    
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }      
+            }**/
         }
-
-        //$response = [
-            //'status' => '0',
-            //'data' => 'Failed Update Data'
-        //];
-        //return $this->respond($response, 404);
+        
     }
 
 

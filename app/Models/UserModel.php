@@ -44,6 +44,11 @@ class UserModel extends Model
         return $this->db->table($this->table)->delete(['id' => $id]);
     }
 
+    public function updatePassword($data, $id)
+    {
+        return $this->db->table($this->table)->update($data, ['email' => $id]);
+    }
+
     public function count_user()
 	{
 		return $this->countAll();

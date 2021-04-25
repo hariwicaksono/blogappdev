@@ -82,12 +82,14 @@ static async getInitialProps ({ query }) {
                                 
                                     API.PutSlideshow(values).then(res=>{
                                       //console.log(res)
-                                      if (res.status === 1 ) {
+                                      if (res.status == '200' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                                        setTimeout(() => { 
-                                          Router.reload();
-                                      }, 2000);
-                                      } 
+                                        //setTimeout(() => { 
+                                          //Router.reload();
+                                      //}, 4000);
+                                      } else {
+                                        toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                    }
                                        
                                   }).catch(err => {
                                       console.log(err.response)
@@ -112,11 +114,11 @@ static async getInitialProps ({ query }) {
                                 isSubmitting
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
-                          <Form.Group>
+                          <Form.Group className="mb-3">
                           <Form.Label>Gambar</Form.Label><br/>
                              <img src={this.state.url+this.state.image} width="200" alt="" />
                           </Form.Group>
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Teks Slide</Form.Label>
                                 <Form.Control name="text_slide" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.text_slide} isInvalid={!!errors.text_slide && touched.text_slide} />
                                 {errors.text_slide && touched.text_slide && <Form.Control.Feedback type="invalid">{errors.text_slide}</Form.Control.Feedback>}

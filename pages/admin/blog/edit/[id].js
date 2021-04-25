@@ -99,7 +99,12 @@ static async getInitialProps ({ query }) {
                                       //console.log(res)
                                       if (res.status == '200' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                                      } 
+                                          setTimeout(() => { 
+                                            Router.push('/admin/blog');
+                                        }, 4000);
+                                      } else {
+                                        toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                    }
                                        
                                   }).catch(err => {
                                       console.log(err.response)

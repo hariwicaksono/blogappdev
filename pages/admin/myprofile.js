@@ -75,9 +75,11 @@ class MyProfile extends Component {
                                 
                                 API.PutUser(values).then(res=>{
                                     //console.log(res)
-                                    if (res.status === 1 ) {
+                                    if (res.status == '200' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                                    } 
+                                    } else {
+                                        toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                    }
                                     
                                 }).catch(err => {
                                     console.log(err.response)
@@ -102,13 +104,13 @@ class MyProfile extends Component {
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
                                 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Nama Lengkap*</Form.Label>
                                 <Form.Control type="text" name="name" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.name} isInvalid={!!errors.name && touched.company} />
                                 {errors.name && touched.name && <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>}
                             </Form.Group>
 
-                            <Form.Group >
+                            <Form.Group className="mb-3">
                                 <Form.Label>Email *</Form.Label>
                                 <Form.Control type="text" name="email" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.email} isInvalid={!!errors.email && touched.email} />
                                 {errors.email && touched.email && <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>}

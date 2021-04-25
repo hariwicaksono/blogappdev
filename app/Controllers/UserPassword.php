@@ -10,35 +10,57 @@ class UserPassword extends ResourceController
 
     public function update($id = null)
     {
-        if ($this->model->find($id)) {
-
-            $input = $this->request->getRawInput();
-            $data = [
-                'password' => md5($input['password'])
-            ];
-
-            if ($this->model->update($id, $data) > 0) {
-
-                $response = [
-                    'status' => '200',
-                    'data' => 'Success Update data'
+        
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                $input = $this->request->getJSON();
+                $data = [
+                    'password' => md5($input->password)
                 ];
-                return $this->respond($response, 200);
-            } else {
-                $response = [
-                    'status' => '404',
-                    'data' => 'Failed Update Data'
+
+                if ($data > 0) {
+                    $this->model->updatePassword($data, $input->id);
+
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }
+                
+            } /**else {
+                //get request from PostMan and more
+                $input = $this->request->getRawInput();
+                $data = [
+                    'password' => md5($input['password'])
                 ];
-                return $this->respond($response, 404);
-            }
-            
+    
+                if ($data > 0) {
+                    $this->model->update($id, $data);
+    
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }      
+            }**/
         }
 
-        //$response = [
-            //'status' => '0',
-            //'data' => 'Failed Update Data'
-        //];
-        //return $this->respond($response, 404);
     }
     
 }

@@ -74,14 +74,17 @@ class Category extends Component {
                     }),
                     Dialog.OKAction(() => {
                       API.DeleteCategory(row.id).then(res => {
-                        if (res.status === 1) {
+                        if (res.status == '200') {
                             toast.success("Hapus data berhasil", {position: "top-center"});
                             setTimeout(() => {
                             Router.push('/admin/blog/category');
                             }, 2000);
                         } else {
-                            console.log('gagal')
+                          toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
                         }
+                      }).catch(err => {
+                        console.log(err.response)
+                        toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
                       })
                     })
                   ],

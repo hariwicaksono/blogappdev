@@ -48,33 +48,75 @@ class Blog extends ResourceController
 
     public function create()
     {
-        
-        $data = [
-            'category_id' => $this->request->getPost('category_id'),
-            'user_id' => $this->request->getPost('user_id'),
-            'title' => $this->request->getPost('title'),
-            'summary' => $this->request->getPost('summary'),
-            'body' => $this->request->getPost('body'),
-            'post_image' => $this->request->getPost('foto'),
-            'date' => $this->request->getPost('date'),
-            'time' => $this->request->getPost('time'),
-            'created_at' => date("Y-m-d H:i:s")
-        ];
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                $input = $this->request->getJSON();
+                $data = [
+                    'category_id' => $input->category_id,
+                    'user_id' => $input->user_id,
+                    'title' => $input->title,
+                    'summary' => $input->summary,
+                    'body' => $input->body,
+                    'post_image' => $input->foto,
+                    'date' => $input->date,
+                    'time' => $input->time,
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
 
-        if ($data > 0) {
-            $this->model->save($data);
-            $response = [
-                'status' => '201',
-                'data' => 'Success Post Data'
-            ];
-            return $this->respond($response, 201);
-        } else {
-            $response = [
-                'status' => '422',
-                'data' => 'Failed Post Data'
-            ];
-            return $this->respond($response, 422);
+                if ($data > 0) {
+                    $this->model->save($data);
+                    $response = [
+                        'status' => '201',
+                        'data' => 'Success Post Data'
+                    ];
+                    return $this->respond($response, 201);
+                } else {
+                    $response = [
+                        'status' => '422',
+                        'data' => 'Failed Post Data'
+                    ];
+                    return $this->respond($response, 422);
+                }
+
+            }
+            else { 
+                $response = [
+                    'status' => '405',
+                    'data' => 'Method Not Allowed'
+                ];
+                return $this->respond($response, 405);
+                }
+             /**$data = [
+                    'category_id' => $this->request->getPost('category_id'),
+                    'user_id' => $this->request->getPost('user_id'),
+                    'title' => $this->request->getPost('title'),
+                    'summary' => $this->request->getPost('summary'),
+                    'body' => $this->request->getPost('body'),
+                    'post_image' => $this->request->getPost('foto'),
+                    'date' => $this->request->getPost('date'),
+                    'time' => $this->request->getPost('time'),
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
+
+                if ($data > 0) {
+                    $this->model->save($data);
+                    $response = [
+                        'status' => '201',
+                        'data' => 'Success Post Data'
+                    ];
+                    return $this->respond($response, 201);
+                } else {
+                    $response = [
+                        'status' => '422',
+                        'data' => 'Failed Post Data'
+                    ];
+                    return $this->respond($response, 422);
+                }
+                **/
         }
+
     }
 
     public function update($id = null)
@@ -109,7 +151,15 @@ class Blog extends ResourceController
                     return $this->respond($response, 404);
                 }
                 
-            } /**else {
+            } 
+            else { 
+                $response = [
+                    'status' => '405',
+                    'data' => 'Method Not Allowed'
+                ];
+                return $this->respond($response, 405);
+                }
+            /**else {
                 //get request from PostMan and more
                 $input = $this->request->getRawInput();
                 $data = [

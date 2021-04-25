@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
-import {isLogin, isAdmin} from '../../libs/utils';
+import {isLogin, isAdmin, logout} from '../../libs/utils';
 import Layout, {siteName, siteTitle} from '../../components/layout';
 import API from '../../libs/axios';
 import {toast} from 'react-toastify';
@@ -76,17 +76,19 @@ class Password extends Component {
                                 if (values.konfirmasi_password === values.password) {
                                 API.PutUserPass(values).then(res=>{
                                     //console.log(res)
-                                    if (res.status === 1 ) {
-                                        toast.success("Data berhasil disimpan", {position: "top-center"});
+                                    if (res.status == '200' ) {
+                                        toast.success("Data berhasil disimpan, silahkan Login ulang", {position: "top-center"});
                                         setTimeout(() => {
-                                            Router.reload(); 
-                                        }, 1000);
-                                    } 
+                                            logout();
+                                            Router.push('/'); 
+                                        }, 4000);
+                                    } else {
+                                        toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                    }
                                     
                                 }).catch(err => {
                                     console.log(err.response)
                                     toast.warn("Tidak ada data yang diubah", {position: "top-center"});
-
                                 })
                             } else {
                                 toast.warn("Konfirmasi Password tidak sesuai", {position: "top-center"});
@@ -109,13 +111,13 @@ class Password extends Component {
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
                                 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Password Baru</Form.Label>
                                 <Form.Control type="password" name="password" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.password} isInvalid={!!errors.password && touched.password} />
                                 {errors.password && touched.password && <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>}
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Konfirmasi Password Baru</Form.Label>
                                 <Form.Control type="password" name="konfirmasi_password" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.konfirmasi_password} isInvalid={!!errors.konfirmasi_password && touched.konfirmasi_password} />
                                 {errors.konfirmasi_password && touched.konfirmasi_password && <Form.Control.Feedback type="invalid">{errors.konfirmasi_password}</Form.Control.Feedback>}

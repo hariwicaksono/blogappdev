@@ -13,7 +13,7 @@ export const logout = () => {
     toast.warn("Berhasil keluar sistem", {position: "top-center"}); 
     setTimeout(()=>{
         Router.reload();
-      },2000);
+      },4000);
 }
 
 export const isLogin = () => {

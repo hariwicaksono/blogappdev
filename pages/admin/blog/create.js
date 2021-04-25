@@ -121,14 +121,17 @@ class Create extends Component {
                                     }
                                   ).then(res=>{
                                     //console.log(res)
-                                    if (res.status === 1 ) {
+                                    if (res.status == '201' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                         setTimeout(() => { 
                                             Router.push('/admin/blog');
-                                        }, 2000);
+                                        }, 4000);
                                     } else {
                                         toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
                                     }
+                                }).catch(err => {
+                                    console.log(err.response)
+                                    toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
                                 })
                                API.PostFoto(values.foto, values.foto.name).then(res => {
                                     //console.log('img_ok')
@@ -154,13 +157,13 @@ class Create extends Component {
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
                              
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Judul Blog</Form.Label>
                                 <Form.Control name="title" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.title} isInvalid={!!errors.title && touched.title} />
                                 {errors.title && touched.title && <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>}
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                             <Form.Label htmlFor="foto">Upload Gambar</Form.Label>
                             <Form.File className="form-control" name="foto" id="foto" onChange={(event) => 
                                 {
@@ -174,7 +177,7 @@ class Create extends Component {
                             {this.state.fotoPreviewUrl ? <img src={this.state.fotoPreviewUrl} width="200" alt="" className="mt-2 img-fluid" /> : ""}
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                             <Form.Label>Kategori</Form.Label>
                             <Form.Control as="select" name="category_id" onChange={handleChange} onBlur={handleBlur} value={values.category_id} isInvalid={!!errors.category_id && touched.category_id}>
                             <option value="">Pilih Kategori</option>
@@ -183,7 +186,7 @@ class Create extends Component {
                             {errors.category_id && touched.category_id && <Form.Control.Feedback type="invalid">{errors.category_id}</Form.Control.Feedback>}
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                             <Row>
                             <Col>
                                 <Form.Label>Tanggal</Form.Label>
@@ -198,7 +201,7 @@ class Create extends Component {
                             </Row>
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Ringkasan</Form.Label>
                                 <Editor 
                                 apiKey="vffx7rg47lbz69xfs80qajyt04jjsxtihahl5gp1rsek0vnt" 
@@ -211,7 +214,7 @@ class Create extends Component {
                             </Form.Group>
 
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Isi Blog</Form.Label>
                                 <Editor 
                                 apiKey="vffx7rg47lbz69xfs80qajyt04jjsxtihahl5gp1rsek0vnt" 

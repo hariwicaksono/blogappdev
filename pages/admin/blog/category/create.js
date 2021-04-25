@@ -73,14 +73,17 @@ class Create extends Component {
                                 
                                 API.PostCategory(values).then(res=>{
                                     //console.log(res)
-                                    if (res.status === 1 ) {
+                                    if (res.status == '201' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                         setTimeout(() => { 
                                             Router.push('/admin/blog/category');
-                                        }, 2000);
+                                        }, 4000);
                                     } else {
                                         toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
                                     }
+                                }).catch(err => {
+                                    console.log(err.response)
+                                    toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
                                 })
                                 
                                 setTimeout(() => {
@@ -102,7 +105,7 @@ class Create extends Component {
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
                              
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Nama</Form.Label>
                                 <Form.Control name="name" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.name} isInvalid={!!errors.name && touched.name} />
                                 {errors.name && touched.name && <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>}

@@ -45,111 +45,146 @@ class Category extends ResourceController
 
     public function create()
     {
-        
-        $data = [
-            'user_id' => $this->request->getPost('user_id'),
-            'name' => $this->request->getPost('name'),
-            'created_at' => date("Y-m-d H:i:s")
-        ];
+        if ($this->request)
+        {
+            //get request from Reactjs
+            if($this->request->getJSON()) {
+                $input = $this->request->getJSON();
+                $data = [
+                    'user_id' => $input->user_id,
+                    'name' => $input->name,
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
 
-        if ($data > 0) {
-            $this->model->save($data);
-            $response = [
-                'status' => '201',
-                'data' => 'Success Post Data'
-            ];
-            return $this->respond($response, 201);
-        } else {
-            $response = [
-                'status' => '422',
-                'data' => 'Failed Post Data'
-            ];
-            return $this->respond($response, 422);
+                if ($data > 0) {
+                    $this->model->save($data);
+                    $response = [
+                        'status' => '201',
+                        'data' => 'Success Post Data'
+                    ];
+                    return $this->respond($response, 201);
+                } else {
+                    $response = [
+                        'status' => '422',
+                        'data' => 'Failed Post Data'
+                    ];
+                    return $this->respond($response, 422);
+                }
+
+            }
+            else { 
+                $response = [
+                    'status' => '405',
+                    'data' => 'Method Not Allowed'
+                ];
+                return $this->respond($response, 405);
+                }
+             /**$data = [
+                    'user_id' => $this->request->getPost('user_id'),
+                    'name' => $this->request->getPost('name'),
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
+
+                if ($data > 0) {
+                    $this->model->save($data);
+                    $response = [
+                        'status' => '201',
+                        'data' => 'Success Post Data'
+                    ];
+                    return $this->respond($response, 201);
+                } else {
+                    $response = [
+                        'status' => '422',
+                        'data' => 'Failed Post Data'
+                    ];
+                    return $this->respond($response, 422);
+                }
+                **/
         }
-    }
+    } 
 
     public function update($id = null)
-    {
-        if ($this->model->find($id)) {
-
-            $input = $this->request->getRawInput();
-            $data = [
-                'name' => $input['name'],
-                'updated_at' => date("Y-m-d H:i:s")
-            ];
-
-            if ($data > 0) {
-                $this->model->update($id, $data);
-
-                $response = [
-                    'status' => '200',
-                    'data' => 'Success Update data'
-                ];
-                return $this->respond($response, 200);
-            } else { 
-                $response = [
-                    'status' => '404',
-                    'data' => 'Failed Update Data'
-                ];
-                return $this->respond($response, 404);
-            } 
-        }
-
-        //$response = [
-            //'status' => '0',
-            //'data' => 'Failed Update Data'
-        //];
-        //return $this->respond($response, 404);
-    }
-
-    public function delete($id = null)
     {
         if ($this->request)
         {
             //get request from Reactjs
             if($this->request->getJSON()) {
-                if ($this->model->find($id)) {
+                $input = $this->request->getJSON();
+                $data = [
+                    'name' => $input->name,
+                    'updated_at' => date("Y-m-d H:i:s")
+                ];
 
-                    $delete = $this->model->delete($id);
-            
-                    if ($delete) {
-                        $response = [
-                            'status' => '200',
-                            'data' => 'Success Delete Data'
-                        ];
-                        return $this->respond($response, 200);
-                    } 
+                if ($data > 0) {
+                    $this->model->update($input->id, $data);
 
-                    //try {
-                        //$this->model->delete($id);
-                        //$response = [
-                            //'status' => '1',
-                            //'data' => 'Success Delete data'
-                        //];
-                        //return $this->respond($response, 200);
-                    //} catch (\Exception $e) {
-                        //$response = [
-                            //'status' => '0',
-                            //'data' => 'Failed Delete Data'
-                        //];
-                        //return $this->respond($response, 422);
-                    //}
-                    
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
                 }
-            } else {
+                
+            }
+            else { 
                 $response = [
                     'status' => '405',
-                    'data' => 'Data Not Found'
+                    'data' => 'Method Not Allowed'
                 ];
                 return $this->respond($response, 405);
-            }
-        } else {
-            $response = [
-                'status' => '404',
-                'data' => 'Data Not Found'
-            ];
-            return $this->respond($response, 404);
+                }
+            /**else {
+                //get request from PostMan and more
+                $input = $this->request->getRawInput();
+                $data = [
+                    'name' => $input['name'],
+                    'updated_at' => date("Y-m-d H:i:s")
+                ];
+    
+                if ($data > 0) {
+                    $this->model->update($id, $data);
+    
+                    $response = [
+                        'status' => '200',
+                        'data' => 'Success Update data'
+                    ];
+                    return $this->respond($response, 200);
+                } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }      
+            }**/
         }
+       
+        
+    }
+
+    public function delete($id = null)
+    {
+        $delete = $this->model->find($id);
+        if ($delete) {
+            $this->model->delete($id);
+            $response = [
+                'status' => '200',
+                'data' => 'Sukses Menghapus Data'
+            ];
+            return $this->respond($response, 200);
+        } else {
+                    $response = [
+                        'status' => '404',
+                        'data' => 'Failed Update Data'
+                    ];
+                    return $this->respond($response, 404);
+                }    
         
     }
     

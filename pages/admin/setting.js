@@ -49,7 +49,13 @@ class Setting extends Component {
             loading: false
           }), 100);
     })
-    }            
+    }    
+    
+    reloadData = () => {
+        setTimeout(() => { 
+         this.componentDidMount()
+        }, 1000);
+      }
 
     render() {
         return (
@@ -86,15 +92,15 @@ class Setting extends Component {
                                 theme: this.state.theme,
                             }}
                             onSubmit={(values, actions) => {
-                                alert(JSON.stringify(values));
+                                //alert(JSON.stringify(values));
                                 
                                 API.PutSetting(values).then(res=>{
                                     //console.log(res)
                                     if (res.status == '200' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                                        setTimeout(() => {
-                                            Router.reload()
-                                        }, 4000);
+                                        setTimeout(() => { 
+                                            this.reloadData();
+                                          }, 4000);
                                     } 
                                     
                                 }).catch(err => {
@@ -154,6 +160,7 @@ class Setting extends Component {
                             </Form.Group>
 
                             <Form.Group>
+                            <Form.Label>Tema Warna</Form.Label>
                                 <Form.Row>
   
                                     <div className="form-check form-check-inline">

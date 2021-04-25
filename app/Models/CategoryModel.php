@@ -25,7 +25,7 @@ class CategoryModel extends Model
         if($id === false){
             return $this->findAll();
         } else {
-            return $this->getWhere(['id' => $id])->getRowArray();
+            return $this->getWhere(['id' => $id])->getResult();
         }  
     }
      

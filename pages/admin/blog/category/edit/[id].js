@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Router from 'next/router';
 import Layout, { siteTitle } from '../../../../../components/layout';
 import API from '../../../../../libs/axios';
 import {Container, Breadcrumb, Card, Spinner, Button, Form} from 'react-bootstrap';
@@ -33,8 +34,9 @@ static async getInitialProps ({ query }) {
 
   componentDidMount = () => {
     const id = this.props.id
+    console.log(id)
         API.GetCategoryId(id).then(res=>{
-          console.log(res)
+          //console.log(res)
           setTimeout(() => this.setState({
                 id: res.data[0].id,
                 name : res.data[0].name,
@@ -78,14 +80,19 @@ static async getInitialProps ({ query }) {
                                 
                                     API.PutCategory(values).then(res=>{
                                       //console.log(res)
-                                      if (res.status === 1 ) {
+                                      if (res.status == '200' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
-                                      } 
+                                        setTimeout(() => { 
+                                          Router.push('/admin/blog/category');
+                                        }, 4000);
+                                      } else {
+                                          toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                      }
                                        
-                                  }).catch(err => {
-                                      console.log(err.response)
-                                      toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
-                                  })
+                                    }).catch(err => {
+                                        console.log(err.response)
+                                        toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
+                                    })
                                 
                                 setTimeout(() => {
                                 actions.setSubmitting(false);
@@ -105,7 +112,7 @@ static async getInitialProps ({ query }) {
                                 isSubmitting
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Kategori</Form.Label>
                                 <Form.Control name="name" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.name} isInvalid={!!errors.name && touched.name} />
                                 {errors.name && touched.name && <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>}

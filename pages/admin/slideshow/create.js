@@ -13,7 +13,7 @@ import Skeleton from 'react-loading-skeleton';
 //import 'moment/locale/id'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-
+ 
 const validationSchema = yup.object({
     text_slide: yup.string().required(),
     foto: yup.mixed().required()
@@ -70,14 +70,17 @@ class Create extends Component {
                                     }
                                   ).then(res=>{
                                     //console.log(res)
-                                    if (res.status === 1 ) {
+                                    if (res.status == '201' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                         setTimeout(() => { 
                                             Router.push('/admin/slideshow');
-                                        }, 2000);
+                                        }, 4000);
                                     } else {
                                         toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
                                     }
+                                }).catch(err => {
+                                    console.log(err.response)
+                                    toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
                                 })
                                API.PostFoto(values.foto, values.foto.name).then(res => {
                                     //console.log('img_ok')
@@ -103,13 +106,13 @@ class Create extends Component {
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
                              
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                                 <Form.Label>Judul Slide</Form.Label>
                                 <Form.Control name="text_slide" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.text_slide} isInvalid={!!errors.text_slide && touched.text_slide} />
                                 {errors.text_slide && touched.text_slide && <Form.Control.Feedback type="invalid">{errors.text_slide}</Form.Control.Feedback>}
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mb-3">
                             <Form.Label htmlFor="foto">Upload Gambar</Form.Label>
                             <Form.File className="form-control" name="foto" id="foto" onChange={(event) => 
                                 {
