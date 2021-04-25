@@ -90,7 +90,7 @@ class Blog extends Component {
                                 foto: values.foto.name
                             }
                         ).then(res=>{
-                            if (res.status == '201' ) {
+                            if (res.status == '200' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                 setTimeout(() => { 
                                     Router.push('/admin/blog');
@@ -125,12 +125,12 @@ class Blog extends Component {
                     }) => (
                 <Form noValidate onSubmit={handleSubmit}>
                      
-                     <Form.Group>
+                     <Form.Group className="mb-3">
                      <Form.Label>Gambar Post</Form.Label><br/>
                     <img src={this.state.url+row.post_image} className="img-fluid" width="200"/>
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                     <Form.Label htmlFor="foto">Upload Gambar</Form.Label>
                     <Form.File className="form-control" name="foto" id="foto" onChange={(event) => 
                         {
@@ -177,7 +177,7 @@ class Blog extends Component {
                                 foto: values.foto.name
                             }
                         ).then(res=>{
-                            if (res.status == '201' ) {
+                            if (res.status == '200' ) {
                                toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                setTimeout(() => { 
                                   Router.push('/admin/blog');
@@ -212,12 +212,12 @@ class Blog extends Component {
                     }) => (
                 <Form noValidate onSubmit={handleSubmit}>
                      
-                     <Form.Group>
+                     <Form.Group className="mb-3">
                      <Form.Label>Gambar Post</Form.Label><br/>
                     <img src={`${process.env.BASE_PATH}/images/no-image.png`} className="img-fluid" width="200"/>
                     </Form.Group>
 
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                     <Form.Label htmlFor="foto">Upload Gambar</Form.Label>
                     <Form.File className="form-control" name="foto" id="foto" onChange={(event) => 
                         {
