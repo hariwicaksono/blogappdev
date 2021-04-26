@@ -110,6 +110,7 @@ const DeleteBlog = (id) => DELETE('blog/',id);
 const PutBlogImage = (data) => PUT('blogimage',data);
 const GetSetting = () => GET('setting');
 const PutSetting = (data) => PUT('setting',data);
+const PutSettingLanding = (data) => PUT('settinglanding',data);
 const GetUser = () => GET('user');
 const GetUserId = (data) => GET_ID('user?id=',data)
 const PostUser = (data) => POST('user',data);
@@ -149,6 +150,7 @@ const API = {
     PutBlogImage,
     GetSetting,
     PutSetting,
+    PutSettingLanding,
     GetUser,
     GetUserId,
     PostUser,

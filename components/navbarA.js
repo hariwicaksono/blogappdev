@@ -34,6 +34,12 @@ componentDidMount = () => {
   if (!isAdmin()) {
     return( Router.push('/login') )
   }
+  API.GetSetting().then(res=>{
+    this.setState({
+        theme: res.data[0].theme
+      })
+})
+
  if (isAdmin()) {
        const data = JSON.parse(localStorage.getItem('isAdmin'))
        const id = data[0].email
@@ -55,12 +61,6 @@ componentDidMount = () => {
           loading: false
       }), 100);
   }
-
-  API.GetSetting().then(res=>{
-    this.setState({
-        theme: res.data[0].theme
-      })
-})
   
   }
 

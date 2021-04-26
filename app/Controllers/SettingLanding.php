@@ -3,31 +3,10 @@
 use App\Models\SettingModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class Setting extends ResourceController
+class SettingLanding extends ResourceController
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SettingModel';
-
-	public function index()
-	{
-        $id = '1';
-        $data = [
-            'status' => '200',
-            'data' => $this->model->getSetting($id)
-        ];
-
-        return $this->respond($data, 200);
-    }
-    
-    public function show($id = null)
-    {
-        $data = [
-            'status' => '200',
-            'data' => $this->model->find($id)
-        ];
-
-        return $this->respond($data, 200);
-    }
 
     public function update($id = null)
     {
@@ -37,12 +16,8 @@ class Setting extends ResourceController
             if($this->request->getJSON()) {
                 $input = $this->request->getJSON();
                 $data = [
-                    'company' => $input->company,
-                    'website' => $input->website,
-                    'phone' => $input->phone,
-                    'email' => $input->email,
-                    'theme' => $input->theme,
-                    'updated_at' => date("Y-m-d H:i:s")
+                    'landing_intro' => $input->landing_intro,
+                    'landing_img' => $input->foto
                 ];
 
                 if ($data > 0) {
@@ -65,12 +40,8 @@ class Setting extends ResourceController
                 //get request from PostMan and more
                 $input = $this->request->getRawInput();
                 $data = [
-                    'company' => $input['company'],
-                    'website' => $input['website'],
-                    'phone' => $input['phone'],
-                    'email' => $input['email'],
-                    'theme' => $input['theme'],
-                    'updated_at' => date("Y-m-d H:i:s")
+                    'landing_intro' => $input['landing_intro'],
+                    'landing_img' => $input['foto']
                 ];
     
                 if ($data > 0) {

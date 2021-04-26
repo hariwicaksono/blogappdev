@@ -24,7 +24,7 @@ class Posts extends Component {
        
                 const slice = this.props.data.slice(this.state.offset, this.state.offset + this.state.perPage)
                 const ListPost = slice.map((post, key) => (
-                    <Col md={3} lg={3} xl={3} key={post.id}>
+                    <Col md={6} lg={3} xl={3} key={post.id}>
                         <Card data-aos="fade-down" data-aos-easing="linear" data-aos-delay="50">
                         <Card.Img variant="top" src={this.state.url+post.post_image} alt={post.title} />
                         <Card.Body>

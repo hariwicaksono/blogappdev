@@ -39,6 +39,7 @@ $routes->post('api/auth',                'Auth::create');
 $routes->get('api/setting',                 'Setting::index');
 $routes->get('api/setting/(:segment)',      'Setting::show/$1');
 $routes->put('api/setting',      'Setting::update');
+$routes->put('api/settinglanding',      'SettingLanding::update');
 $routes->get('api/blog',                 'Blog::index');
 $routes->get('api/blog/(:segment)',      'Blog::show/$1');
 $routes->post('api/blog',                'Blog::create');
