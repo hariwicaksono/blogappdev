@@ -19,6 +19,7 @@ class Index extends Component{
         Slideshow: [],
         Posts: [],
         landing_intro: '',
+        landing_link: '',
         landing_img: '',
         url: ImagesUrl(),
         loading: true
@@ -34,6 +35,7 @@ class Index extends Component{
       API.GetSetting().then(res=>{
         this.setState({
             landing_intro: res.data[0].landing_intro,
+            landing_link: res.data[0].landing_link,
             landing_img: res.data[0].landing_img,
           })
       })
@@ -73,7 +75,7 @@ class Index extends Component{
                 <h1 className="display-4 fw-bold lh-1">Selamat Datang di <strong>{this.props.setting.company}</strong></h1>
                 <p className="lead" data-aos="fade-down" data-aos-delay="30">{this.state.landing_intro}</p>
                 <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                  <Link href="https://bl.id/kumpulink_itshoppwt" passHref><a type="button" className="btn btn-success btn-lg px-4 me-md-2 fw-bold" data-aos="fade-left" data-aos-delay="50"><FaCartPlus/> Beli Sekarang</a></Link>
+                  <Link href={this.state.landing_link} passHref><a type="button" className="btn btn-success btn-lg px-4 me-md-2 fw-bold" data-aos="fade-left" data-aos-delay="50"><FaCartPlus/> Beli Sekarang</a></Link>
                 </div>
               </Col>
               <Col lg={4} className="offset-lg-1 p-0 position-relative overflow-hidden shadow-lg">

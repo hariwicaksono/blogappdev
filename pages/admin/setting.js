@@ -20,7 +20,8 @@ const validationSchema = yup.object({
   }); 
 const validationSchema2 = yup.object({
     landing_intro: yup.string().required('Field harus diisi'),
-    foto: yup.mixed().required()
+    landing_link: yup.string().nullable(),
+    foto: yup.mixed().nullable()
   }); 
 class Setting extends Component {
     constructor(props) {
@@ -32,6 +33,7 @@ class Setting extends Component {
             phone: '',
             email: '',
             landing_intro: '',
+            landing_link: '',
             landing_img: '',
             theme: '',
             foto: '',
@@ -54,6 +56,7 @@ class Setting extends Component {
             phone: res.data[0].phone,
             email: res.data[0].email,
             landing_intro: res.data[0].landing_intro,
+            landing_link: res.data[0].landing_link,
             landing_img: res.data[0].landing_img,
             theme: res.data[0].theme,
             loading: false
@@ -219,15 +222,38 @@ class Setting extends Component {
                         initialValues={{ 
                             id: this.state.id,
                             landing_intro: this.state.landing_intro,
-                            foto: this.state.landing_img, 
+                            landing_link: this.state.landing_link,
+                            foto: null
                         }}
                         onSubmit={(values, actions) => {
                             //alert(JSON.stringify(values));
-                            
+                            if (values.foto == null) {
+                                API.PutSettingLanding(
+                                    { 
+                                        id: values.id, 
+                                        landing_intro: values.landing_intro,
+                                        landing_link: values.landing_link,
+                                        foto: this.state.landing_img
+                                    }
+                                ).then(res=>{
+                                    if (res.status == '200' ) {
+                                    toast.success("Data berhasil disimpan", {position: "top-center"}); 
+                                    setTimeout(() => { 
+                                        this.reloadData();
+                                      }, 4000);
+                                    }  else {
+                                    toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                }
+                                }).catch(err => {
+                                    console.log(err.response)
+                                    toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
+                                })
+                            } else {
                             API.PutSettingLanding(
                                 { 
                                     id: values.id, 
                                     landing_intro: values.landing_intro,
+                                    landing_link: values.landing_link,
                                     foto: values.foto.name
                                 }
                             ).then(res=>{
@@ -244,9 +270,11 @@ class Setting extends Component {
                                 toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
                             })
                             API.PostFoto(values.foto, values.foto.name).then(res => {
-                            console.log('img_ok')
-                            //toast.success("Gambar berhasil disimpan", {position: "top-center"}); 
+                                //console.log('img_ok')
+                                toast.success("Gambar berhasil disimpan", {position: "top-center"}); 
                             })
+
+                            }
                             
                             setTimeout(() => {
                             actions.setSubmitting(false);
@@ -259,11 +287,11 @@ class Setting extends Component {
                             handleSubmit,
                             handleChange,
                             handleBlur,
-                            values,
                             setFieldValue,
+                            values,
                             touched,
                             errors,
-                            isSubmitting
+                            isSubmitting 
                         }) => (
                     <Form noValidate onSubmit={handleSubmit}>
 
@@ -276,6 +304,12 @@ class Setting extends Component {
                             <Form.Label>Landing Intro *</Form.Label>
                             <Form.Control as="textarea" rows={3} name="landing_intro" onChange={handleChange} onBlur={handleBlur} value={values.landing_intro} isInvalid={!!errors.landing_intro && touched.landing_intro}/>
                             {errors.landing_intro && touched.landing_intro && <Form.Control.Feedback type="invalid">{errors.landing_intro}</Form.Control.Feedback>}
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Landing Link</Form.Label>
+                            <Form.Control type="text" name="landing_link" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.landing_link} isInvalid={!!errors.landing_link && touched.landing_link} />
+                            {errors.landing_link && touched.landing_link && <Form.Control.Feedback type="invalid">{errors.landing_link}</Form.Control.Feedback>}
                         </Form.Group>
 
                         <Form.Group className="mb-3">

@@ -33,6 +33,8 @@
     "react-toastify": "^6.2.0",
     "spin.js": "^4.1.0",
     "styled-components": "^5.2.3",
+    "timeago": "^1.6.7",
+    "timeago-react": "^3.0.2",
     "yup": "^0.29.3"
   },
   "peerDependencies": {

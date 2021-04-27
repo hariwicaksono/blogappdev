@@ -17,6 +17,7 @@ class SettingLanding extends ResourceController
                 $input = $this->request->getJSON();
                 $data = [
                     'landing_intro' => $input->landing_intro,
+                    'landing_link' => $input->landing_link,
                     'landing_img' => $input->foto
                 ];
 
@@ -41,6 +42,7 @@ class SettingLanding extends ResourceController
                 $input = $this->request->getRawInput();
                 $data = [
                     'landing_intro' => $input['landing_intro'],
+                    'landing_link' => $input['landing_link'],
                     'landing_img' => $input['foto']
                 ];
     
