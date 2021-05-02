@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Router from 'next/router';
 import Layout, { siteTitle } from '../../components/layout';
 import API from '../../libs/axios';
 import { ImagesUrl } from '../../libs/urls';
@@ -10,6 +11,7 @@ import parse from 'html-react-parser';
 import Skeleton from 'react-loading-skeleton';
 import FormComment from '../../components/postComment';
 import Posts from '../../components/posts';
+import {toast} from 'react-toastify';
 
 class Detail extends Component {
   constructor(props){
@@ -17,7 +19,7 @@ class Detail extends Component {
     this.state = {
         Posts: [],
         loading: true
-        
+         
     }
 } 
 static async getInitialProps ({ query }) {
@@ -40,6 +42,10 @@ static async getInitialProps ({ query }) {
             }), 100);
         }).catch(err => {
           console.log(err.response)
+          toast.error("Kategori tidak ditemukan, periksa kembali", {position: "top-center"});
+          setTimeout(() => { 
+            Router.push('/');
+          }, 4000);
       })
         
 }

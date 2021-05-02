@@ -2,6 +2,7 @@
 
 use App\Models\SlideshowModel;
 use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\HTTP\IncomingRequest;
 
 class Slideshow extends ResourceController
 {
@@ -154,15 +155,21 @@ class Slideshow extends ResourceController
 
     public function delete($id = null)
     {
-        $delete = $this->model->find($id);
-        if ($delete) {
-            $this->model->delete($id);
-            $response = [
-                'status' => '200',
-                'data' => 'Sukses Menghapus Data'
-            ];
-            return $this->respond($response, 200);
-        } 
+        $id = $this->model->find($id);
+        if ($id) {
+                $this->model->delete($id);
+                $response = [
+                    'status' => '200',
+                    'data' => 'Sukses Menghapus Data'
+                ];
+                return $this->respond($response, 200);
+        }  else {
+                $response = [
+                    'status' => '404',
+                    'data' => 'Failed Update Data'
+                ];
+                return $this->respond($response, 404);
+        }     
     }
     
 } 

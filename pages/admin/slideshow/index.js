@@ -276,7 +276,7 @@ class Slideshow extends Component {
                               this.reloadData();
                             }, 4000);
                         } else {
-                            console.log('gagal')
+                          toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
                         }
                       })
                     })

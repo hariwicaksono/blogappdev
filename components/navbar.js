@@ -57,6 +57,7 @@ componentDidMount = () => {
         <ul className="navbar-nav me-auto">
         <li><Link href="/" passHref><a className="nav-link">Home</a></Link></li>
         <li><Link href="/blog" passHref><a className="nav-link">Blog</a></Link></li>
+        <li><Link href="/contact" passHref><a className="nav-link">Contact</a></Link></li>
           {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <Link href="#" passHref><NavDropdown.Item>Action</NavDropdown.Item></Link>
             <Link href="#" passHref><NavDropdown.Item>Another action</NavDropdown.Item></Link>

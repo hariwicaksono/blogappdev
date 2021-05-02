@@ -80,14 +80,13 @@ componentDidMount = () => {
   <Navbar.Collapse id="basic-navbar-nav">
   <ul className="navbar-nav me-auto">
   <li><Link href="/" passHref><a className="nav-link">Home</a></Link></li>
-      {/*<Link href="/blog" passHref><Nav.Link>Blog</Nav.Link></Link>
-      <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-        <Link href="#" passHref><NavDropdown.Item>Action</NavDropdown.Item></Link>
-        <Link href="#" passHref><NavDropdown.Item>Another action</NavDropdown.Item></Link>
-        <Link href="#" passHref><NavDropdown.Item>Something</NavDropdown.Item></Link>
-        <NavDropdown.Divider />
-        <Link href="#" passHref><NavDropdown.Item>Separated link</NavDropdown.Item></Link>
-      </NavDropdown>*/}
+  {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">
+    <Link href="#" passHref><NavDropdown.Item>Action</NavDropdown.Item></Link>
+    <Link href="#" passHref><NavDropdown.Item>Another action</NavDropdown.Item></Link>
+    <Link href="#" passHref><NavDropdown.Item>Something</NavDropdown.Item></Link>
+    <NavDropdown.Divider />
+    <Link href="#" passHref><NavDropdown.Item>Separated link</NavDropdown.Item></Link>
+  </NavDropdown>*/}
     </ul>
 
     <SearchForm/>

@@ -28,15 +28,15 @@ class Posts extends Component {
                         <Card data-aos="fade-down" data-aos-easing="linear" data-aos-delay="50">
                         <Card.Img variant="top" src={this.state.url+post.post_image} alt={post.title} />
                         <Card.Body>
-                        <p className="text-muted">{post.created_at}</p> 
-                        
+                        <p className="text-muted">{post.created_at}<br/>
+                        <Link href={"/tag/"+post.category} passHref><a><span className="badge bg-secondary text-light">{post.category}</span></a></Link></p> 
                         <Card.Title className="fw-bold mb-0">
                         <Link href={"/blog/posts/"+post.slug} passHref><a>{post.title}</a></Link>
                         </Card.Title>
-                        <Card.Text>
+                        <>
                         {parse(post.summary, { trim: true })}
-                        </Card.Text>
-                        <Link href={"/tag/"+post.category} passHref><a><span className="badge bg-secondary text-light">{post.category}</span></a></Link>
+                        </>
+                        
                         </Card.Body>
                         </Card>
                     </Col>
