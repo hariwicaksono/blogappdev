@@ -74,6 +74,11 @@ $routes->post('api/user',                'User::create');
 $routes->put('api/user',      'User::update');
 $routes->delete('api/user/delete/(:segment)',   'User::delete/$1');
 $routes->put('api/userpassword',      'UserPassword::update');
+$routes->get('api/product',                 'Product::index');
+$routes->get('api/product/(:segment)',      'Product::show/$1');
+$routes->post('api/product',                'Product::create');
+$routes->put('api/product',      'Product::update');
+$routes->delete('api/product/delete/(:segment)',   'Product::delete/$1');
 
 /*
  * --------------------------------------------------------------------
