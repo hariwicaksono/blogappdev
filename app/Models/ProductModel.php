@@ -3,7 +3,7 @@
 use CodeIgniter\Model;
 
 class ProductModel extends Model
-{
+{ 
     protected $table = 'products';
     protected $primaryKey = 'id';
 
@@ -29,7 +29,7 @@ class ProductModel extends Model
             $builder->select('p.*, c.name as category, u.name as user');
             $builder->join('categories c', 'c.id = p.category_id','left');
             $builder->join('users u', 'u.id = p.user_id');
-            $builder->where('c.group', 'blog');
+            $builder->where('c.group', 'product');
             $builder->orderBy('p.id', 'DESC');
             $query = $builder->get();
             return $query->getResultArray();

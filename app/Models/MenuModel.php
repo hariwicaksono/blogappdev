@@ -2,9 +2,9 @@
 
 use CodeIgniter\Model;
 
-class SlideshowModel extends Model
-{
-    protected $table = 'slideshows';
+class MenuModel extends Model
+{ 
+    protected $table = 'menus';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -12,39 +12,40 @@ class SlideshowModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['img_slide', 'text_slide', 'created_at', 'updated_at'];
+    protected $allowedFields = ['menu', 'url', 'menu_order', 'parent_id'];
 
     protected $useTimestamps = false;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
- 
+
     protected $skipValidation     = true;
 
-    public function getSlideshow($id = false)
+    public function getMenu($id = false)
     {
         if($id === false){
+            $this->orderBy('menu_order', 'ASC');
             return $this->findAll();
         } else {
             return $this->getWhere(['id' => $id])->getResult();
         }  
     }
      
-    public function insertSlideshow($data)
+    public function insertMenu($data)
     {
         return $this->db->table($this->table)->insert($data);
     }
  
-    public function updateSlideshow($data, $id)
+    public function updateMenu($data, $id)
     {
         return $this->db->table($this->table)->update($data, ['id' => $id]);
     }
  
-    public function deleteSlideshow($id)
+    public function deleteMenu($id)
     {
         return $this->db->table($this->table)->delete(['id' => $id]);
     }
 
-    public function count_slideshow()
+    public function count_menu()
 	{
 		return $this->countAll();
 	}

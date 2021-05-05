@@ -1,22 +1,22 @@
 <?php namespace App\Controllers;
 
-use App\Models\ProductModel;
+use App\Models\MenuModel;
 use CodeIgniter\RESTful\ResourceController;
 
-class Product extends ResourceController
+class Menu extends ResourceController
 {
     protected $format       = 'json';
-    protected $modelName    = 'App\Models\ProductModel';
+    protected $modelName    = 'App\Models\MenuModel';
 
 	public function index()
 	{
-        $count = $this->model->count_product();
+        $count = $this->model->count_menu();
         $id=$this->request->getVar('id');
 
         if ($id == null) {
-			$data = $this->model->getProduct();
+			$data = $this->model->getMenu();
 		} else {
-			$data = $this->model->getProduct($id);
+			$data = $this->model->getMenu($id);
 		}
 		
         if ($data) {
@@ -39,7 +39,7 @@ class Product extends ResourceController
     {
         $data = [
             'status' => '200',
-            'data' => $this->model->getProduct($id)
+            'data' => $this->model->getMenu($id)
             //'data' => $this->model->find($id)
         ];
 
@@ -54,16 +54,9 @@ class Product extends ResourceController
             if($this->request->getJSON()) {
                 $input = $this->request->getJSON();
                 $data = [
-                    'category_id' => $input->category_id,
-                    'user_id' => $input->user_id,
-                    'title' => $input->title,
-                    'summary' => $input->summary,
-                    'body' => $input->body,
-                    'price' => $input->price,
-                    'unit' => $input->unit,
-                    'post_image' => $input->foto,
-                    'date' => $input->date,
-                    'time' => $input->time,
+                    'menu' => $input->category_id,
+                    'url' => $input->user_id,
+                    'parent_id' => $input->title,
                     'created_at' => date("Y-m-d H:i:s")
                 ];
 
@@ -91,16 +84,9 @@ class Product extends ResourceController
                 return $this->respond($response, 405);
                 }
              /**$data = [
-                    'category_id' => $this->request->getPost('category_id'),
-                    'user_id' => $this->request->getPost('user_id'),
-                    'title' => $this->request->getPost('title'),
-                    'summary' => $this->request->getPost('summary'),
-                    'body' => $this->request->getPost('body'),
-                    'price' => $this->request->getPost('price'),
-                    'unit' => $this->request->getPost('unit'),
-                    'post_image' => $this->request->getPost('foto'),
-                    'date' => $this->request->getPost('date'),
-                    'time' => $this->request->getPost('time'),
+                    'menu' => $this->request->getPost('menu'),
+                    'url' => $this->request->getPost('url'),
+                    'parent_id' => $this->request->getPost('parent_id'),
                     'created_at' => date("Y-m-d H:i:s")
                 ];
 
@@ -131,13 +117,9 @@ class Product extends ResourceController
             if($this->request->getJSON()) {
                 $input = $this->request->getJSON();
                 $data = [
-                    'title' => $input->title,
-                    'summary' => $input->summary,
-                    'body' => $input->body,
-                    'price' => $input->price,
-                    'unit' => $input->unit,
-                    'date' => $input->date,
-                    'time' => $input->time,
+                    'menu' => $input->menu,
+                    'url' => $input->url,
+                    'parent_id' => $input->parent_id,
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
 
@@ -169,13 +151,9 @@ class Product extends ResourceController
                 //get request from PostMan and more
                 $input = $this->request->getRawInput();
                 $data = [
-                    'title' => $input['title'],
-                    'summary' => $input['summary'],
-                    'body' => $input['body'],
-                    'price' => $input['price'],
-                    'unit' => $input['unit'],
-                    'date' => $input['date'],
-                    'time' => $input['time'],
+                    'menu' => $input['menu'],
+                    'url' => $input['url'],
+                    'parent_id' => $input['parent_id'],
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
     
