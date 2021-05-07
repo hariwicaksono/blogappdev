@@ -137,7 +137,9 @@ const GetCommentId = (data) => GET_ID('comment?id=',data)
 const PostComment = (data) => POST('comment',data);
 const PutComment = (data) => PUT('comment',data);
 const CountComment = () => GET('countcomment');
-const GetTag = (data) => GET_ID('tag?category=',data)
+const GetTag = (data) => GET_ID('tag?category=',data);
+const GetMenu = () => GET('menu');
+const GetProduct = () => GET('product');
 
 const API = {
     PostLogin,
@@ -177,7 +179,9 @@ const API = {
     PostComment,
     PutComment,
     CountComment,
-    GetTag
+    GetTag,
+    GetMenu,
+    GetProduct
 }
 
 export default API

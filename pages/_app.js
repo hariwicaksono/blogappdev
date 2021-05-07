@@ -14,7 +14,8 @@ class MyApp extends Component {
   constructor(props){
     super(props)
     this.state = {
-      Pengaturan: []
+      Pengaturan: [],
+      cartCount: 0
         }
     }
 
@@ -22,6 +23,11 @@ class MyApp extends Component {
 
   componentDidMount = () => {
     AOS.init();
+
+    const cartData = JSON.parse(localStorage.getItem('cartItem'));
+    const cartCount = cartData && cartData.length ? cartData.length : 0;
+    this.setState({cartCount: cartCount});
+
     API.GetSetting().then(res=>{
       this.setState({
           Pengaturan: res.data[0]
@@ -32,9 +38,13 @@ class MyApp extends Component {
   render() {
     const { Component, pageProps } = this.props;
 
+    let that = this;
+        const cartCount = (cartCount) => {
+            that.setState({cartCount: cartCount})
+        }
     return (   
     <>
-    <Component {...pageProps} setting={this.state.Pengaturan} />
+    <Component {...pageProps} setting={this.state.Pengaturan} totalCnt={cartCount} />
     <ToastContainer />
     </>
     );
