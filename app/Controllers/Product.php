@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\ProductModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class Product extends ResourceController
+class Product extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\ProductModel';
-
+    protected $auth = ['key'];
 	public function index()
 	{
         $count = $this->model->count_product();

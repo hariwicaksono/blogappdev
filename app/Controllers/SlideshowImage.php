@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\SlideshowModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class SlideshowImage extends ResourceController
+class SlideshowImage extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SlideshowModel';
-
+    protected $auth = ['key'];
     public function update($id = null)
     {
 

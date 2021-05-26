@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\CategoryModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class CountCategory extends ResourceController
+class CountCategory extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\CategoryModel';
-
+    protected $auth = ['key'];
 	public function index()
 	{
         $count = $this->model->count_category();

@@ -1,14 +1,14 @@
 <?php namespace App\Controllers;
 
 use App\Models\SlideshowModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 use CodeIgniter\HTTP\IncomingRequest;
 
-class Slideshow extends ResourceController
+class Slideshow extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SlideshowModel';
-
+    protected $auth = ['key'];
 	public function index()
 	{
         $id=$this->request->getVar('id');

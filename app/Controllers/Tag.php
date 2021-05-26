@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\BlogModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class Tag extends ResourceController
+class Tag extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
-    
+    protected $auth = ['key'];
     public function index()
     {
         $id=$this->request->getVar('category');

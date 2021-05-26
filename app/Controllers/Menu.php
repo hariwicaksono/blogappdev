@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\MenuModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class Menu extends ResourceController
+class Menu extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\MenuModel';
-
+    protected $auth = ['key'];
 	public function index()
 	{
         $count = $this->model->count_menu();

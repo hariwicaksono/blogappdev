@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\SettingModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class Setting extends ResourceController
+class Setting extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SettingModel';
-
+    protected $auth = ['key'];
 	public function index()
 	{
         $id = '1';

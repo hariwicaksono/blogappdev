@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\CommentModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class CountComment extends ResourceController
+class CountComment extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\CommentModel';
-
+    protected $auth = ['key'];
 	public function index()
 	{
         $count = $this->model->count_comment();

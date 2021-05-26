@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\SettingModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class SettingLanding extends ResourceController
+class SettingLanding extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SettingModel';
-
+    protected $auth = ['key'];
     public function update($id = null)
     {
         if ($this->request)

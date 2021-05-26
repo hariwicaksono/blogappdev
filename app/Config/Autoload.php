@@ -42,6 +42,8 @@ class Autoload extends AutoloadConfig
 	public $psr4 = [
 		APP_NAMESPACE => APPPATH, // For custom app namespace
 		'Config'      => APPPATH . 'Config',
+		'Appkita\\CI4Restfull' => APPPATH .'Restfull',
+		'Appkita\CI4Restfull\Cache' => APPPATH .'Restfull'
 	];
 
 	/**
@@ -62,5 +64,11 @@ class Autoload extends AutoloadConfig
 	 *
 	 * @var array<string, string>
 	 */
-	public $classmap = [];
+	public $classmap = [
+		'Appkita\\CI4Restfull\\RestfullApi' => APPPATH .'Restfull/RestfullApi.php',
+		'Appkita\\CI4Restfull\\Auth' => APPPATH .'Restfull/Auth.php',
+		'Appkita\\CI4Restfull\\ErrorOutput' => APPPATH .'Restfull/ErrorOutput.php',
+		'Appkita\\CI4Restfull\\Cache\CacheUSER' => APPPATH .'Restfull/Cache/CacheAPI.php',
+		'Appkita\\CI4Restfull\\Cache\CacheAPI' => APPPATH .'Restfull/Cache/CacheUSER.php'
+	];
 }

@@ -1,17 +1,17 @@
 import Axios from 'axios'
-
-const RootPath = "http://localhost/blogappdev/api/"
+ 
+const RootPath = "http://localhost/blogappdev/"
 
 // Authorization
-// key = blog123
+// key = its1187@pwt
 // Gunakan https://www.base64decode.org untuk melakukan encode key diatas menjadi format base64
-//var key = new Buffer.from('YmxvZzEyMw==', 'base64')
-//const ApiKey = key.toString();
-//const config = { headers: { 'X-API-KEY': `${ApiKey}` } };
+var key = new Buffer.from('aXRzMTE4N0Bwd3Q=', 'base64')
+const ApiKey = key.toString();
+const config = { headers: { 'X-API-KEY': `${ApiKey}` } };
 
 const GET = (path) => {
     const promise = new Promise((resolve,reject) => {
-        Axios.get(RootPath+path).then(res => {
+        Axios.get(RootPath+path, config).then(res => {
             resolve(res.data)
         }).catch(err => {
             reject(err)
@@ -22,7 +22,7 @@ const GET = (path) => {
 
 const GET_ID = (path,id) => {
     const promise = new Promise((resolve,reject) => {
-        Axios.get(RootPath+path+id).then(res => {
+        Axios.get(RootPath+path+id, config).then(res => {
             resolve(res.data)
         }).catch(err => {
             reject(err)
@@ -33,7 +33,7 @@ const GET_ID = (path,id) => {
 
 const GET_BY_ID = (path,data) =>{
     const promise = new Promise((resolve,reject)=>{
-         Axios.get(RootPath+path+data).then(res=>{
+         Axios.get(RootPath+path+data, config).then(res=>{
              resolve(res.data)
          },err=>{
             console.log(err.response); 
@@ -45,7 +45,7 @@ const GET_BY_ID = (path,data) =>{
 
 const POST = (path,data) => {
     const promise = new Promise((resolve,reject) => {
-        Axios.post(RootPath+path,data).then(res => {
+        Axios.post(RootPath+path,data, config).then(res => {
             resolve(res.data)
         }).catch(err => {
             reject(err)
@@ -56,7 +56,7 @@ const POST = (path,data) => {
 
 const PUT = (path,data) => {
     const promise = new Promise((resolve,reject) => {
-        Axios.put(RootPath+path,data).then(res => {
+        Axios.put(RootPath+path,data, config).then(res => {
             resolve(res.data)
         }).catch(err => {
             reject(err)
@@ -67,7 +67,7 @@ const PUT = (path,data) => {
 
 const DELETE = (path,data) => {
     const promise = new Promise((resolve,reject) => {
-        Axios.delete(RootPath+path+data).then(res => {
+        Axios.delete(RootPath+path+data, config).then(res => {
             resolve(res.data)
         }).catch(err => {
             reject(err)
@@ -78,7 +78,7 @@ const DELETE = (path,data) => {
 
 const SEARCH = (path,data) => {
     const promise = new Promise((resolve,reject) => {
-        Axios.get(RootPath+path+data).then(res => {
+        Axios.get(RootPath+path+data, config).then(res => {
             resolve(res.data)
         }).catch(er => {
             reject(er)
@@ -91,7 +91,7 @@ const POST_FOTO = (path,data,name) => {
     const promise = new Promise((resolve,reject)=>{
         const formdata = new FormData()
         formdata.append('foto',data,name)
-        Axios.post(RootPath+path, formdata).then(res=>{
+        Axios.post(RootPath+path, formdata, config).then(res=>{
            resolve(res.data.status)
        },(err)=>{
            reject(err)

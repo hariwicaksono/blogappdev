@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\UserModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class UserPassword extends ResourceController
+class UserPassword extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\UserModel';
-
+    protected $auth = ['key'];
     public function update($id = null)
     {
         

@@ -1,12 +1,14 @@
 <?php namespace App\Controllers;
 
 use App\Models\BlogModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class Blog extends ResourceController
+class Blog extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
+
+    protected $auth = ['key'];
 
 	public function index()
 	{

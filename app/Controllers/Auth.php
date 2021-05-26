@@ -1,12 +1,14 @@
 <?php namespace App\Controllers;
 
 use App\Models\AuthModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class Auth extends ResourceController
+class Auth extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\AuthModel';
+
+    protected $auth = ['key'];
 
     public function create()
     {

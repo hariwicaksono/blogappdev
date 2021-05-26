@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\CommentModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
  
-class Comment extends ResourceController
+class Comment extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\CommentModel';
-
+    protected $auth = ['key'];
 	public function index()
 	{
         $id=$this->request->getVar('id');

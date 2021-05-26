@@ -1,11 +1,11 @@
 <?php namespace App\Controllers;
 
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class ImageUpload extends ResourceController
+class ImageUpload extends RestfullApi
 {
     protected $format       = 'json';
-
+    protected $auth = ['key'];
 	public function create()
     {
         $gambar = $this->request->getFile('foto');

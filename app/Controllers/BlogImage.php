@@ -1,13 +1,13 @@
 <?php namespace App\Controllers;
 
 use App\Models\BlogModel;
-use CodeIgniter\RESTful\ResourceController;
+use \Appkita\CI4Restfull\RestfullApi;
 
-class BlogImage extends ResourceController
+class BlogImage extends RestfullApi
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
-
+    protected $auth = ['key'];
     public function update($id = null)
     {
         if ($this->model->find($id)) {
