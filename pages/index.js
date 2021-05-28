@@ -7,7 +7,7 @@ import {ImagesUrl} from '../libs/urls';
 import {Container, Alert, Card, Row, Col, Spinner, Button, Form} from 'react-bootstrap';
 import Slideshow from '../components/slideshow';
 import Loader from 'react-loader';
-import Blog from '../components/posts';
+import Blog from '../components/blogPosts';
 import Product from '../components/products';
 import {FaExclamationTriangle, FaCartPlus} from 'react-icons/fa';
 import Skeleton from 'react-loading-skeleton';
@@ -36,26 +36,27 @@ class Index extends Component{
           })
       })
       API.GetSetting().then(res=>{
-        setTimeout(() => this.setState({
+       this.setState({
             landing_intro: res.data[0].landing_intro,
             landing_link: res.data[0].landing_link,
             landing_img: res.data[0].landing_img,
-            loading: false
-          }), 100);
-      })
-
-      API.GetBlog().then(res => {
-         this.setState({
-            Posts: res.data,
-        
-        })
+          })
       })
 
       API.GetProduct().then(res => {
-       this.setState({
+          this.setState({
             Products: res.data
-        })
+          })
       })
+
+      API.GetBlog().then(res => {
+          this.setState({
+            Posts: res.data,
+            loading: false
+          })
+      })
+
+      
   } 
   render(){
         
@@ -112,19 +113,7 @@ class Index extends Component{
             </Row>
           </section>
 
-            <section id="blog" className="blog-section">
-              <h1 className="mb-3 h2" data-aos="fade-down" data-aos-delay="70">Posting Blog Terbaru</h1>
-              {
-                this.state.loading ?
-                  <Skeleton height={400} />
-                :
-                <>
-                <Blog data={this.state.Posts} />
-                </>
-              }
-            </section>
-          
-            <section>
+          <section>
             <h3 className="mb-3 mt-3" data-aos="fade-down" data-aos-delay="70">Semua Produk</h3>
             {
               this.state.loading ?
@@ -136,6 +125,19 @@ class Index extends Component{
               </>
             }
             </section>
+
+            <section id="blog" className="blog-section">
+              <h1 className="mb-3 h2" data-aos="fade-down" data-aos-delay="70">Posting terbaru</h1>
+              {
+                this.state.loading ?
+                  <Skeleton height={400} />
+                :
+                <>
+                <Blog data={this.state.Posts} />
+                </>
+              }
+            </section>
+          
           </Col>
         </Row>
         

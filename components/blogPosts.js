@@ -6,7 +6,7 @@ import { ImagesUrl } from '../libs/urls';
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import parse from 'html-react-parser';
 
-class Posts extends Component {
+class blogPosts extends Component {
   
     constructor(props){
         super(props)
@@ -26,7 +26,7 @@ class Posts extends Component {
                 const ListPost = slice.map((post, key) => (
                     <Col md={6} lg={3} xl={3} key={post.id}>
                         <Card data-aos="fade-down" data-aos-easing="linear" data-aos-delay="50">
-                        <Card.Img variant="top" src={this.state.url+post.post_image} alt={post.title} />
+                        <Card.Img variant="top" src={this.state.url+post.post_image} alt={post.title} height="140"/>
                         <Card.Body>
                         <p className="text-muted">{post.created_at}<br/>
                         <Link href={"/tag/"+post.category} passHref><a><span className="badge bg-secondary text-light">{post.category}</span></a></Link></p> 
@@ -96,4 +96,4 @@ class Posts extends Component {
     }
 }
 
-export default Posts
+export default blogPosts;

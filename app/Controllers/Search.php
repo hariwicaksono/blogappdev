@@ -8,6 +8,7 @@ class Search extends RestfullApi
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
     protected $auth = ['key'];
+    
     public function index()
     {
         $id=$this->request->getVar('id');

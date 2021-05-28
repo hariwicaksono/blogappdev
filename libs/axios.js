@@ -3,9 +3,9 @@ import Axios from 'axios'
 const RootPath = "http://localhost/blogappdev/"
 
 // Authorization
-// key = its1187@pwt
+// key = itshop123
 // Gunakan https://www.base64decode.org untuk melakukan encode key diatas menjadi format base64
-var key = new Buffer.from('aXRzMTE4N0Bwd3Q=', 'base64')
+var key = new Buffer.from('aXRzaG9wMTIz', 'base64')
 const ApiKey = key.toString();
 const config = { headers: { 'X-API-KEY': `${ApiKey}` } };
 
@@ -140,6 +140,7 @@ const CountComment = () => GET('countcomment');
 const GetTag = (data) => GET_ID('tag?category=',data);
 const GetMenu = () => GET('menu');
 const GetProduct = () => GET('product');
+const CountProduct = () => GET('countproduct');
 
 const API = {
     PostLogin,
@@ -181,7 +182,8 @@ const API = {
     CountComment,
     GetTag,
     GetMenu,
-    GetProduct
+    GetProduct,
+    CountProduct
 }
 
 export default API

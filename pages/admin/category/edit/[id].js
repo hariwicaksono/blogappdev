@@ -1,50 +1,57 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Head from 'next/head';
-import Router from 'next/router';
 import Link from 'next/link';
-import {isLogin, isAdmin} from '../../../../libs/utils';
-import Layout, {siteName, siteTitle} from '../../../../components/layout';
+import Router from 'next/router';
+import Layout, { siteTitle } from '../../../../components/layout';
 import API from '../../../../libs/axios';
-import {toast} from 'react-toastify';
-import {Container, Breadcrumb, Card, Row, Col, Spinner, Button, Form} from 'react-bootstrap'
+import {Container, Breadcrumb, Card, Spinner, Button, Form} from 'react-bootstrap';
 import { FaSave} from 'react-icons/fa';
+import {toast} from 'react-toastify';
 import Skeleton from 'react-loading-skeleton';
-//import moment from 'moment'
-//import 'moment/locale/id'
-import { Formik } from 'formik'
-import * as yup from 'yup'
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 const validationSchema = yup.object({
-    name: yup.string().required(),
-  }); 
+  name: yup.string().required()
+}); 
 
-class Create extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            user_id: '',
-            name: '',
-            loading: true
-        }
+class Edit extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        id: '',
+        name: '',
+        loading: true
+        
     }
- 
-    componentDidMount = () => {
-        const datas = JSON.parse(localStorage.getItem('isAdmin'))
-        const id = datas[0].id
-        this.setState({
-            id: id,
-            loading: false
+} 
+static async getInitialProps ({ query }) {
+  const id = query.id
+  return {
+    id: id
+  }
+}
+
+  componentDidMount = () => {
+    const id = this.props.id
+    console.log(id)
+        API.GetCategoryId(id).then(res=>{
+          //console.log(res)
+          setTimeout(() => this.setState({
+                id: res.data[0].id,
+                name : res.data[0].name,
+                loading: false
+            }), 100);
         })
-    }
-
-    render() {
-
-        return (
-            <Layout admin>
+  }
+  render() {
+  //const {title,summary,body,image,date,time,created,category_id,user,user_id,url} = this.state;
+  return (
+    <Layout admin>
             <Head>
-                <title>Tambah Kategori - {siteTitle}</title>
+                <title>Edit Kategori - {siteTitle}</title>
             </Head>
-                <Container fluid>
+    <Container fluid>
                     
                 { this.state.loading ?
                 <>
@@ -56,35 +63,36 @@ class Create extends Component {
                       
                         <Breadcrumb className="my-3">
                         <Link href="/admin" passHref><Breadcrumb.Item >Home</Breadcrumb.Item></Link>
-                        <Link href="/admin/blog" passHref><Breadcrumb.Item >Blog</Breadcrumb.Item></Link>
-                        <Link href="/admin/blog/category" passHref><Breadcrumb.Item >Kategori</Breadcrumb.Item></Link>
-                        <Breadcrumb.Item active>Tambah</Breadcrumb.Item>
+                       
+                        <Link href="/admin/category" passHref><Breadcrumb.Item >Kategori</Breadcrumb.Item></Link>
+                        <Breadcrumb.Item active>Edit</Breadcrumb.Item>
                         </Breadcrumb>
                         
                         <Card className="mb-2" body>
-                            <h5 className="mb-3" style={{fontWeight: '400'}}>Tambah Kategori</h5>
+                            <h5 className="mb-3" style={{fontWeight: '400'}}>Edit Kategori</h5>
                             <Formik
                             initialValues={{ 
-                                user_id: this.state.id,
-                                name: ''
+                                id: this.state.id,
+                                name: this.state.name,
                             }}
                             onSubmit={(values, actions) => {
                                 //alert(JSON.stringify(values));
                                 
-                                API.PostCategory(values).then(res=>{
-                                    //console.log(res)
-                                    if (res.status == '201' ) {
+                                    API.PutCategory(values).then(res=>{
+                                      //console.log(res)
+                                      if (res.status == '200' ) {
                                         toast.success("Data berhasil disimpan", {position: "top-center"}); 
                                         setTimeout(() => { 
-                                            Router.push('/admin/blog/category');
+                                          Router.push('/admin/category');
                                         }, 4000);
-                                    } else {
-                                        toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
-                                    }
-                                }).catch(err => {
-                                    console.log(err.response)
-                                    toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
-                                })
+                                      } else {
+                                          toast.warn("Gagal, periksa kembali", {position: "top-center"}); 
+                                      }
+                                       
+                                    }).catch(err => {
+                                        console.log(err.response)
+                                        toast.warn("Tidak ada data yang diubah", {position: "top-center"}); 
+                                    })
                                 
                                 setTimeout(() => {
                                 actions.setSubmitting(false);
@@ -104,9 +112,8 @@ class Create extends Component {
                                 isSubmitting
                             }) => (
                         <Form noValidate onSubmit={handleSubmit}>
-                             
                             <Form.Group className="mb-3">
-                                <Form.Label>Nama</Form.Label>
+                                <Form.Label>Kategori</Form.Label>
                                 <Form.Control name="name" placeholder="" className="form-control" onChange={handleChange} onBlur={handleBlur} value={values.name} isInvalid={!!errors.name && touched.name} />
                                 {errors.name && touched.name && <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>}
                             </Form.Group>
@@ -135,8 +142,9 @@ class Create extends Component {
                    
                 </Container>
             </Layout>
-        )
-    }
+  );
+}
 }
 
-export default Create;
+
+export default Edit;

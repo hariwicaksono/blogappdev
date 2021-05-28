@@ -25,16 +25,18 @@ function SubMenu() {
         <li>
           <Link href={'/admin/blog/create'} activeClassName="active" passHref><><FaFileAlt size="1.4rem"/> <span>Tambah</span></></Link>
         </li>
-        <li>
-          <Link href={'/admin/blog/category'} activeClassName="active" passHref><><FaFileAlt size="1.4rem"/> <span>Kategori</span></></Link>
-        </li>
          
       </ul>
       </Collapse>
     </li>
+
+    <li>
+      <Link href={'/admin/category'} activeClassName="active" passHref><><FaFileAlt size="1.4rem"/> <span>Kategori</span></></Link>
+    </li>
+
     <li>
       <Link href={'/admin/blog/comment'} activeClassName="active" passHref><><FaComment size="1.4rem"/> <span>Komentar</span></></Link>
-        </li>
+    </li>
         
         <li>
           <Link href={'/admin/setting'} activeClassName="active" passHref><><FaWrench size="1.4rem"/> <span>Pengaturan</span></></Link>

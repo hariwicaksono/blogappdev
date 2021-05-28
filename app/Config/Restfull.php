@@ -8,14 +8,14 @@ class Restfull extends BaseConfig
     /**
      * @var String $cekfrom | database or file
      */
-    public $cekfrom = 'file';
+    public $cekfrom = 'database';
     
     /**
      * @var Array $user_config  
      * Configuration user check
     */
      public $user_config = [
-      'model' => 'UserModel',
+      'model' => 'KeysModel',
       'username_coloumn'=>'email',
       'password_coloumn'=>'password',
       'key_coloumn' => 'apikey',
@@ -33,7 +33,7 @@ class Restfull extends BaseConfig
       [
         'email'=>'user@email.com',
         'password'=>'password',
-        'apikey'=>'its1187@pwt',
+        'apikey'=>'123123',
         'isblock'=>false,
         'whitelist'=>[],
         'blacklist'=>[],

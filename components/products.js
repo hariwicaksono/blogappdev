@@ -58,12 +58,15 @@ class Products extends Component {
                     <Col md={3} key={produk.id}>
                         
                     <Card className="shadow-sm mb-3">
-                    
-                        <Card.Img variant="top" src={this.state.url+"/products/"+produk.gambar} alt={produk.nama} />
+                        {produk.post_image !== null ?
+                        <Card.Img variant="top" src={this.state.url+produk.post_image} alt={produk.title} height="220"/>
+                        :
+                        <Card.Img variant="top" src={this.state.url+"img_product.jpg"} alt={produk.title} height="220"/>
+                        }
                     
                         <Card.Body className="pt-1">
-                        <Card.Text className="mb-0" style={{fontSize: '1.125rem'}}><Link href={"/produk/"+produk.id} passHref><a>{produk.nama}</a></Link></Card.Text>
-                            <Card.Text className="text-danger" style={{fontSize: '1rem'}}>Rp{produk.harga}</Card.Text>
+                        <Card.Text className="mb-0" style={{fontSize: '1.125rem'}}><Link href={"/products/"+produk.slug} passHref><a>{produk.title}</a></Link></Card.Text>
+                            <Card.Text className="text-danger" style={{fontSize: '1rem'}}>Rp.{produk.price}</Card.Text>
                             <button type="submit" name="submit" defaultValue="Keranjang" className="btn btn-secondary btn-block" onClick={() => this.handleSubmit(produk, key)}>Beli <FiShoppingCart /></button>
                         </Card.Body>
                     </Card>

@@ -2,10 +2,10 @@ import React, { Component, useState, useMemo } from 'react'
 import Head from 'next/head';
 import Router from 'next/router';
 import Link from 'next/link';
-import {isLogin, isAdmin} from '../../../../libs/utils';
-import {ImagesUrl} from '../../../../libs/urls';
-import Layout, {siteName, siteTitle} from '../../../../components/layout';
-import API from '../../../../libs/axios';
+import {isLogin, isAdmin} from '../../../libs/utils';
+import {ImagesUrl} from '../../../libs/urls';
+import Layout, {siteName, siteTitle} from '../../../components/layout';
+import API from '../../../libs/axios';
 import {toast} from 'react-toastify';
 import {Container, Breadcrumb, Card, Row, Col, Button, Form} from 'react-bootstrap';
 import { FaTrash, FaPencilAlt} from 'react-icons/fa';
@@ -62,7 +62,7 @@ class Category extends Component {
         {
           name: 'Aksi',
           sortable: false,
-          cell: row => <><Link href={'/admin/blog/category/edit/'+row.id} passHref><Button size="sm" title="Edit" alt="Edit"><FaPencilAlt/></Button></Link>&nbsp;
+          cell: row => <><Link href={'/admin/category/edit/'+row.id} passHref><Button size="sm" title="Edit" alt="Edit"><FaPencilAlt/></Button></Link>&nbsp;
           <Button onClick={() => {
                 this.dialog.show({
                   title: 'Konfirmasi',
@@ -164,7 +164,7 @@ class Category extends Component {
 
     const FilterComponent = ({ filterText, onFilter, onClear }) => (
       <>
-      <Link href="/admin/blog/category/create" passHref><Button variant="primary" style={{ position: 'absolute', left: '0', marginLeft: '15px'}}>Tambah Kategori</Button></Link>
+      <Link href="/admin/category/create" passHref><Button variant="primary" style={{ position: 'absolute', left: '0', marginLeft: '15px'}}>Tambah Kategori</Button></Link>
         <TextField id="search" type="text" placeholder="Filter By Judul" aria-label="Search Input" value={filterText} onChange={onFilter} />
         <ClearButton variant="secondary" type="button" onClick={onClear}>X</ClearButton>
       </>
@@ -217,7 +217,6 @@ class Category extends Component {
                 <Container fluid>
                 <Breadcrumb className="my-3">
                 <Link href="/admin" passHref><Breadcrumb.Item >Home</Breadcrumb.Item></Link>
-                <Link href="/admin/blog" passHref><Breadcrumb.Item >Blog</Breadcrumb.Item></Link>
                 <Breadcrumb.Item active>Kategori</Breadcrumb.Item>
                 </Breadcrumb>
                     <Row>
