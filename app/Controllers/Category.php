@@ -52,6 +52,7 @@ class Category extends RestfullApi
                 $input = $this->request->getJSON();
                 $data = [
                     'user_id' => $input->user_id,
+                    'group' => $input->group,
                     'name' => $input->name,
                     'created_at' => date("Y-m-d H:i:s")
                 ];
@@ -111,6 +112,7 @@ class Category extends RestfullApi
             if($this->request->getJSON()) {
                 $input = $this->request->getJSON();
                 $data = [
+                    'group' => $input->group,
                     'name' => $input->name,
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
