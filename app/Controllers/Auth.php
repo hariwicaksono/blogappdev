@@ -23,14 +23,17 @@ class Auth extends RestfullApi
                 $cek = $this->model->cek_login($user,$password);
                 if ($cek) {
                     $response = [
-                        'id' => '1',
+                        'id' => 1,
+                        'status' => true,
+                        'message' =>'Anda telah berhasil Login',
                         'data' => $cek
                     ];
                     return $this->response->setStatusCode(200)->setJSON($response);
                 } else {
                     $response = [
-                        'id' => '404',
-                        'data' => 'User Not Found'
+                        'status' => false,
+                        'message' => 'Username atau Password tidak sesuai',
+                        'data' => []
                     ];
                     return $this->response->setStatusCode(200)->setJSON($response);
                 }
@@ -41,25 +44,22 @@ class Auth extends RestfullApi
                 $cek = $this->model->cek_login($user,$password);
                 if ($cek) {
                     $response = [
-                        'id' => '1',
+                        'id' => 1,
+                        'status' => true,
+                        'message'=>'Anda telah berhasil Login',
                         'data' => $cek
                     ];
                     return $this->response->setStatusCode(200)->setJSON($response);
                 } else {
                     $response = [
-                        'id' => '404',
-                        'data' => 'User Not Found'
+                        'status' => false,
+                        'message' => 'Username atau Password tidak sesuai',
+                        'data' => []
                     ];
                     return $this->response->setStatusCode(200)->setJSON($response);
                 }
             }
-        } else{
-			$response = [
-				'id'=> '404',
-				'data' => 'Data Not Found'
-			];
-            return $this->response->setStatusCode(200)->setJSON($response);
-		}
+        } 
         
     }   
 
