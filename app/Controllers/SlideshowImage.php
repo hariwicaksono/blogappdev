@@ -8,6 +8,7 @@ class SlideshowImage extends RestfullApi
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SlideshowModel';
     protected $auth = ['key'];
+
     public function update($id = null)
     {
 
@@ -24,16 +25,18 @@ class SlideshowImage extends RestfullApi
                     $this->model->update($input->id, $data);
 
                     $response = [
-                        'status' => '200',
-                        'data' => 'Success Update data'
+                        'status' => true,
+                        'message' => 'Berhasil memperbarui data',
+                        'data' => []
                     ];
                     return $this->respond($response, 200);
                 } else {
                     $response = [
-                        'status' => '404',
-                        'data' => 'Failed Update Data'
+                        'status' => false,
+                        'message' => 'Gagal memperbarui data',
+                        'data' => []
                     ];
-                    return $this->respond($response, 404);
+                    return $this->respond($response, 200);
                 }
                 
             } /**else {

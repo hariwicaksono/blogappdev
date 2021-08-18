@@ -8,6 +8,7 @@ class Menu extends RestfullApi
     protected $format       = 'json';
     protected $modelName    = 'App\Models\MenuModel';
     protected $auth = ['key'];
+
 	public function index()
 	{
         $count = $this->model->count_menu();
@@ -21,24 +22,27 @@ class Menu extends RestfullApi
 		
         if ($data) {
             $response = [
-                'status' => '200',
+                'status' => true,
+                'message' => 'Berhasil menampilkan semua data',
                 'data' => $data,
                 'jumlah' => $count
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '404',
-                'data' => 'Data Not Found'
+                'status' => false,
+                'message' => 'Tidak ada data',
+                'data' => []
             ];
-            return $this->respond($response, 404);
+            return $this->respond($response, 200);
         }
     }
     
     public function show($id = null)
     {
         $data = [
-            'status' => '200',
+            'status' => true,
+            'message' => 'Berhasil menampilkan data',
             'data' => $this->model->getMenu($id)
             //'data' => $this->model->find($id)
         ];
@@ -63,25 +67,28 @@ class Menu extends RestfullApi
                 if ($data > 0) {
                     $this->model->save($data);
                     $response = [
-                        'status' => '201',
-                        'data' => 'Success Post Data'
+                        'status' => true,
+                        'message' => 'Berhasil menyimpan data',
+                        'data' => []
                     ];
-                    return $this->respond($response, 201);
+                    return $this->respond($response, 200);
                 } else {
                     $response = [
-                        'status' => '422',
-                        'data' => 'Failed Post Data'
+                        'status' => false,
+                        'message' => 'Gagal menyimpan data',
+                        'data' => []
                     ];
-                    return $this->respond($response, 422);
+                    return $this->respond($response, 200);
                 }
 
             }
             else {  
                 $response = [
-                    'status' => '405',
-                    'data' => 'Method Not Allowed'
+                    'status' => false,
+                    'message' => 'Metode tidak diizinkan',
+                    'data' => []
                 ];
-                return $this->respond($response, 405);
+                return $this->respond($response, 200);
                 }
              /**$data = [
                     'menu' => $this->request->getPost('menu'),
@@ -127,25 +134,28 @@ class Menu extends RestfullApi
                     $this->model->update($input->id, $data);
 
                     $response = [
-                        'status' => '200',
-                        'data' => 'Success Update data'
+                        'status' => true,
+                        'message' => 'Berhasil memperbarui data',
+                        'data' => []
                     ];
                     return $this->respond($response, 200);
                 } else {
                     $response = [
-                        'status' => '404',
-                        'data' => 'Failed Update Data'
+                        'status' => false,
+                        'message' => 'Gagal memperbarui data',
+                        'data' => []
                     ];
-                    return $this->respond($response, 404);
+                    return $this->respond($response, 200);
                 }
                 
             } 
             else { 
                 $response = [
-                    'status' => '405',
-                    'data' => 'Method Not Allowed'
+                    'status' => false,
+                    'message' => 'Metode tidak diizinkan',
+                    'data' => []
                 ];
-                return $this->respond($response, 405);
+                return $this->respond($response, 200);
                 }
             /**else {
                 //get request from PostMan and more
@@ -183,16 +193,18 @@ class Menu extends RestfullApi
         if ($id) {
                 $this->model->delete($id);
                 $response = [
-                    'status' => '200',
-                    'data' => 'Sukses Menghapus Data'
+                    'status' => true,
+                    'message' => 'Berhasil menghapus data',
+                    'data' => []
                 ];
                 return $this->respond($response, 200);
         }  else {
                 $response = [
-                    'status' => '404',
-                    'data' => 'Failed Update Data'
+                    'status' => false,
+                    'message' => 'Gagal menghapus data',
+                    'data' => []
                 ];
-                return $this->respond($response, 404);
+                return $this->respond($response, 200);
         }  
     }
     

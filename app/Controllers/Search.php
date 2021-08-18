@@ -14,23 +14,25 @@ class Search extends RestfullApi
         $id=$this->request->getVar('id');
 
         if ($id == null) {
-			return $this->respond(['status' => '0','data'=> 'id tidak boleh kosong']);
+			return $this->respond(['status' => false,'message'=> 'id tidak boleh kosong','data'=>[]]);
 		} else {
 			$search = $this->model->searchBlog($id);
 		}
 		
         if ($search) {
             $response = [
-                'status' => '200',
+                'status' => true,
+                'message' => 'Berhasil menampilkan data',
                 'data' => $search
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '404',
-                'data' => 'Data Not Found'
+                'status' => false,
+                'message' => 'Tidak ada data',
+                'data' => []
             ];
-            return $this->respond($response, 404);
+            return $this->respond($response, 200);
         }
     }
 

@@ -8,6 +8,7 @@ class UserPassword extends RestfullApi
     protected $format       = 'json';
     protected $modelName    = 'App\Models\UserModel';
     protected $auth = ['key'];
+    
     public function update($id = null)
     {
         
@@ -24,16 +25,18 @@ class UserPassword extends RestfullApi
                     $this->model->updatePassword($data, $input->id);
 
                     $response = [
-                        'status' => '200',
-                        'data' => 'Success Update data'
+                        'status' => true,
+                        'message' => 'Berhasil memperbarui password',
+                        'data' => []
                     ];
                     return $this->respond($response, 200);
                 } else {
                     $response = [
-                        'status' => '404',
-                        'data' => 'Failed Update Data'
+                        'status' => false,
+                        'message' => 'Gagal memperbarui password',
+                        'data' => []
                     ];
-                    return $this->respond($response, 404);
+                    return $this->respond($response, 200);
                 }
                 
             } /**else {

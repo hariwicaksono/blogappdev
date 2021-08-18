@@ -8,6 +8,7 @@ class BlogImage extends RestfullApi
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
     protected $auth = ['key'];
+    
     public function update($id = null)
     {
         if ($this->model->find($id)) {
@@ -20,16 +21,18 @@ class BlogImage extends RestfullApi
             if ($this->model->update($id, $data) > 0) {
 
                 $response = [
-                    'status' => '200',
-                    'data' => 'Success Update data'
+                    'status' => true,
+                    'message' => 'Berhasil memperbarui data',
+                    'data' => []
                 ];
                 return $this->respond($response, 200);
             } else {
                 $response = [
-                    'status' => '404',
-                    'data' => 'Failed Update Data'
+                    'status' => false,
+                    'message' => 'Gagal memperbarui data',
+                    'data' => []
                 ];
-                return $this->respond($response, 404);
+                return $this->respond($response, 200);
             }
 
             

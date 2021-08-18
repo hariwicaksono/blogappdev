@@ -8,11 +8,13 @@ class Setting extends RestfullApi
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SettingModel';
     protected $auth = ['key'];
+
 	public function index()
 	{
         $id = '1';
         $data = [
-            'status' => '200',
+            'status' => true,
+            'message' => 'Berhasil menampilkan data',
             'data' => $this->model->getSetting($id)
         ];
 
@@ -22,7 +24,8 @@ class Setting extends RestfullApi
     public function show($id = null)
     {
         $data = [
-            'status' => '200',
+            'status' => true,
+            'message' => 'Berhasil menampilkan data',
             'data' => $this->model->find($id)
         ];
 
@@ -49,16 +52,18 @@ class Setting extends RestfullApi
                     $this->model->update($input->id, $data);
 
                     $response = [
-                        'status' => '200',
-                        'data' => 'Success Update data'
+                        'status' => true,
+                        'message' => 'Berhasil menyimpan data',
+                        'data' => []
                     ];
                     return $this->respond($response, 200);
                 } else {
                     $response = [
-                        'status' => '404',
-                        'data' => 'Failed Update Data'
+                        'status' => false,
+                        'message' => 'Gagal menyimpan data',
+                        'data' => []
                     ];
-                    return $this->respond($response, 404);
+                    return $this->respond($response, 200);
                 }
                 
             } /**else {

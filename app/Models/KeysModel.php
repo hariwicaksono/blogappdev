@@ -7,7 +7,7 @@ use Exception;
 class KeysModel extends Model
 {
     protected $table = 'keys';
-    protected $primaryKey = 'UID';
+    protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
     protected $useTimestamps = true;

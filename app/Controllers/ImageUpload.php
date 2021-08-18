@@ -6,6 +6,7 @@ class ImageUpload extends RestfullApi
 {
     protected $format       = 'json';
     protected $auth = ['key'];
+
 	public function create()
     {
         $gambar = $this->request->getFile('foto');
@@ -13,16 +14,18 @@ class ImageUpload extends RestfullApi
         if ($gambar !== "") {
             $gambar->move('images/', $fileName);
             $response = [
-                'status' => '201',
-                'data' => 'Image Upload Success'
+                'status' => true,
+                'message' => 'Berhasil upload gambar',
+                'data' => []
             ];
-            return $this->respond($response, 201);
+            return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '422',
-                'data' => 'Failed Upload Data'
+                'status' => false,
+                'message' => 'Gagal upload gambar',
+                'data' => []
             ];
-            return $this->respond($response, 422);
+            return $this->respond($response, 200);
         }
     }
     

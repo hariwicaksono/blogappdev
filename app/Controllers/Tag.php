@@ -8,28 +8,30 @@ class Tag extends RestfullApi
     protected $format       = 'json';
     protected $modelName    = 'App\Models\BlogModel';
     protected $auth = ['key'];
+
     public function index()
     {
         $id=$this->request->getVar('category');
 
         if ($id == null) {
-			return $this->respond(['status' => '0','data'=> 'id tidak boleh kosong']);
+			return $this->respond(['status' => false,'message'=> 'id tidak boleh kosong','data' => []]);
 		} else {
 			$data = $this->model->searchTag($id);
 		}
 		
         if ($data) {
             $response = [
-                'status' => '200',
+                'status' => true,
+                'message' => 'Berhasil menampilkan semua data',
                 'data' => $data
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
-                'status' => '404',
-                'data' => 'Data Not Found'
+                'status' => false,
+                'message' => 'Tidak ada data',
             ];
-            return $this->respond($response, 404);
+            return $this->respond($response, 200);
         }
     }
 

@@ -13,7 +13,8 @@ class CountProduct extends RestfullApi
 	{
         $count = $this->model->count_product();
         $data = [
-            'status' => '200',
+            'status' => true,
+            'message' => 'Berhasil menampilkan data',
             'data' => $count
         ];
 
