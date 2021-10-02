@@ -22,7 +22,7 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(true);
 $routes->set404Override();
-$routes->setAutoRoute(false);
+$routes->setAutoRoute(true);
 
 /*
  * --------------------------------------------------------------------
@@ -32,7 +32,20 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-//$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index');
+
+$routes->group('api', ['namespace' => $routes->getDefaultNamespace() . 'Api'], function ($routes) {
+	$routes->get('blog', 'Blog::index');
+	$routes->get('blog/(:segment)', 'Blog::show/$1');
+	$routes->post('blog/save', 'Blog::create');
+	$routes->put('blog/update/(:segment)', 'Blog::update/$1');
+	$routes->delete('blog/delete', 'Blog::delete');
+	$routes->get('category', 'Category::index');
+	$routes->get('category/(:segment)', 'Category::show/$1');
+	$routes->post('category/save', 'Category::create');
+	$routes->put('category/update/(:segment)', 'Category::update/$1');
+	$routes->delete('category/delete', 'Category::delete');
+});
 
 /*
  * --------------------------------------------------------------------
@@ -50,8 +63,4 @@ $routes->setAutoRoute(false);
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
 {
 	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
-}
-if (file_exists(APPPATH . 'Restfull/Routes.php'))
-{
-	require APPPATH . 'Restfull/Routes.php';
 }

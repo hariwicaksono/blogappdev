@@ -1,13 +1,12 @@
-<?php namespace App\Controllers;
+<?php namespace App\Controllers\Api;
 
+use App\Controllers\BaseControllerApi;
 use App\Models\UserModel;
-use \Appkita\CI4Restfull\RestfullApi;
 
-class User extends RestfullApi
+class User extends BaseControllerApi
 {
     protected $format       = 'json';
-    protected $modelName    = 'App\Models\UserModel';
-    protected $auth = ['key'];
+    protected $modelName    = UserModel::class;
 
 	public function index()
 	{
@@ -156,6 +155,40 @@ class User extends RestfullApi
                 ];
                 return $this->respond($response, 200);
         }  
+    }
+
+    public function changePassword($id = null)
+    {
+        
+        if($this->request->getJSON()) {
+            $input = $this->request->getJSON();
+            $data = [
+                'password' => $input->password
+            ];
+        } else {
+            $input = $this->request->getRawInput();
+            $data = [
+                'password' => $input['password']
+            ];
+        }
+
+        if ($data > 0) {
+            $this->model->update($id, $data);
+            $response = [
+                'status' => true,
+                'message' => 'Berhasil memperbarui password',
+                'data' => []
+            ];
+            return $this->respond($response, 200);
+        } else {
+            $response = [
+                'status' => false,
+                'message' => 'Gagal memperbarui password',
+                'data' => []
+            ];
+            return $this->respond($response, 200);
+        }         
+        
     }
     
 }

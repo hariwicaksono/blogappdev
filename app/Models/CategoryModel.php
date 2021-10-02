@@ -4,47 +4,37 @@ use CodeIgniter\Model;
 
 class CategoryModel extends Model
 {
+    protected $DBGroup  = 'default';
     protected $table = 'categories';
     protected $primaryKey = 'id';
-
     protected $useAutoIncrement = true;
-
+    protected $insertID = 0;
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
+    protected $protectFields = true;
+    protected $allowedFields = ['user_id', 'name'];
 
-    protected $allowedFields = ['user_id', 'name', 'created_at', 'updated_at'];
-
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+    protected $deletedField  = '';
 
-    protected $skipValidation     = true;
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
 
-    public function getCategory($id = false)
-    {
-        if($id === false){
-            return $this->findAll();
-        } else {
-            return $this->getWhere(['id' => $id])->getResult();
-        }  
-    }
-     
-    public function insertCategory($data)
-    {
-        return $this->db->table($this->table)->insert($data);
-    }
- 
-    public function updateCategory($data, $id)
-    {
-        return $this->db->table($this->table)->update($data, ['id' => $id]);
-    }
- 
-    public function deleteCategory($id)
-    {
-        return $this->db->table($this->table)->delete(['id' => $id]);
-    }
+    protected $allowCallbacks       = true;
+    protected $beforeInsert         = [];
+    protected $afterInsert          = [];
+    protected $beforeUpdate         = [];
+    protected $afterUpdate          = [];
+    protected $beforeFind           = [];
+    protected $afterFind            = [];
+    protected $beforeDelete         = [];
+    protected $afterDelete          = [];
 
-    public function count_category()
+    public function countCategory()
 	{
 		return $this->countAll();
 	}

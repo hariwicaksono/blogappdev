@@ -1,87 +1,79 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use CodeIgniter\Model;
 
 class BlogModel extends Model
 {
+    protected $DBGroup  = 'default';
     protected $table = 'posts';
     protected $primaryKey = 'id';
-
     protected $useAutoIncrement = true;
-
+    protected $insertID             = 0;
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
+    protected $protectFields = true;
+    protected $allowedFields = ['category_id', 'user_id', 'title', 'slug', 'summary', 'body', 'post_image', 'date', 'time'];
 
-    protected $allowedFields = ['category_id', 'user_id', 'title', 'slug', 'summary', 'body', 'post_image', 'date', 'time', 'created_at', 'updated_at'];
-
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+    protected $deletedField  = '';
 
-    protected $skipValidation     = true;
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
+
+    protected $allowCallbacks       = true;
+    protected $beforeInsert         = [];
+    protected $afterInsert          = [];
+    protected $beforeUpdate         = [];
+    protected $afterUpdate          = [];
+    protected $beforeFind           = [];
+    protected $afterFind            = [];
+    protected $beforeDelete         = [];
+    protected $afterDelete          = [];
 
     public function getBlog($id = false)
     {
-        $db      = \Config\Database::connect();
-
-        if($id === false){
-            $builder = $db->table('posts p');
-            $builder->select('p.*, c.name as category, u.name as user');
-            $builder->join('categories c', 'c.id = p.category_id','left');
-            $builder->join('users u', 'u.id = p.user_id');
-            $builder->where('c.group', 'blog');
-            $builder->orderBy('p.id', 'DESC');
-            $query = $builder->get();
-            return $query->getResultArray();
+        if ($id === false) {
+            $this->select("{$this->table}.*, c.name as category, u.name as user");
+            $this->join("categories c", "c.id = {$this->table}.category_id", "left");
+            $this->join("users u", "u.id = {$this->table}.user_id");
+            $this->where("c.group", "blog");
+            $this->orderBy("{$this->table}.id", "DESC");
+            return $this->findAll();
         } else {
-            $builder = $db->table('posts p');
-            $builder->select('p.*, c.name as category, u.name as user');
-            $builder->join('categories c', 'c.id = p.category_id');
-            $builder->join('users u', 'u.id = p.user_id');
-            $builder->where('p.id', $id);
-            $builder->orWhere('p.slug', $id);
-            $query = $builder->get();
-            return $query->getResultArray();
-        }  
-    }
-     
-    public function insertBlog($data)
-    {
-        return $this->db->table($this->table)->insert($data);
-    }
- 
-    public function updateBlog($data, $id)
-    {
-        return $this->db->table($this->table)->update($data, ['id' => $id]);
-    }
- 
-    public function deleteBlog($id)
-    {
-        return $this->db->table($this->table)->delete(['id' => $id]);
+            $this->select("{$this->table}.*, c.name as category, u.name as user");
+            $this->join("categories c", "c.id = {$this->table}.category_id");
+            $this->join("users u", "u.id = {$this->table}.user_id");
+            $this->where("{$this->table}.id", $id);
+            $this->orWhere("{$this->table}.slug", $id);
+            return $this->findAll();
+        }
     }
 
-    public function count_blog()
-	{
-		return $this->countAll();
-	}
+    public function countBlog()
+    {
+        return $this->countAll();
+    }
 
-    public function searchBlog($id){
+    public function searchBlog($id)
+    {
         $this->like("title", $id);
         $this->orLike("body", $id);
-        $query = $this->get();
-        return $query->getResultArray();
+        return $this->findAll();
     }
 
-    public function searchTag($category){
-        $db      = \Config\Database::connect();
-        $builder = $db->table('posts p');
-        $builder->select('p.*, c.name as category, u.name as user');
-        $builder->join('categories c', 'c.id = p.category_id');
-        $builder->join('users u', 'u.id = p.user_id');
-        $builder->where('c.name', $category);
-        $builder->orderBy('p.id', 'DESC');
-        $query = $builder->get();
-        return $query->getResultArray();
+    public function searchTag($category)
+    {
+        $this->select("{$this->table}.*, c.name as category, u.name as user");
+        $this->join("categories c", "c.id = {$this->table}.category_id");
+        $this->join("users u", "u.id = {$this->table}.user_id");
+        $this->where("c.name", $category);
+        $this->orderBy("{$this->table}.id", "DESC");
+        return $this->findAll();
     }
-
 }

@@ -4,47 +4,37 @@ use CodeIgniter\Model;
 
 class SlideshowModel extends Model
 {
+    protected $DBGroup  = 'default';
     protected $table = 'slideshows';
     protected $primaryKey = 'id';
-
+    protected $insertID             = 0;
     protected $useAutoIncrement = true;
-
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
+    protected $protectFields = true;
+    protected $allowedFields = ['img_slide', 'text_slide'];
 
-    protected $allowedFields = ['img_slide', 'text_slide', 'created_at', 'updated_at'];
-
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
- 
-    protected $skipValidation     = true;
+    protected $deletedField  = '';
 
-    public function getSlideshow($id = false)
-    {
-        if($id === false){
-            return $this->findAll();
-        } else {
-            return $this->getWhere(['id' => $id])->getResult();
-        }  
-    }
-     
-    public function insertSlideshow($data)
-    {
-        return $this->db->table($this->table)->insert($data);
-    }
- 
-    public function updateSlideshow($data, $id)
-    {
-        return $this->db->table($this->table)->update($data, ['id' => $id]);
-    }
- 
-    public function deleteSlideshow($id)
-    {
-        return $this->db->table($this->table)->delete(['id' => $id]);
-    }
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
 
-    public function count_slideshow()
+    protected $allowCallbacks       = true;
+    protected $beforeInsert         = [];
+    protected $afterInsert          = [];
+    protected $beforeUpdate         = [];
+    protected $afterUpdate          = [];
+    protected $beforeFind           = [];
+    protected $afterFind            = [];
+    protected $beforeDelete         = [];
+    protected $afterDelete          = [];
+
+    public function countSlideshow()
 	{
 		return $this->countAll();
 	}

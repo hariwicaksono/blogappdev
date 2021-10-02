@@ -4,55 +4,47 @@ use CodeIgniter\Model;
 
 class CommentModel extends Model
 {
+    protected $DBGroup  = 'default';
     protected $table = 'comments';
     protected $primaryKey = 'id';
-
     protected $useAutoIncrement = true;
-
+    protected $insertID = 0;
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
+    protected $protectFields = true;
+    protected $allowedFields = ['post_id', 'name', 'email', 'body', 'active'];
 
-    protected $allowedFields = ['post_id', 'name', 'email', 'body', 'active', 'created_at', 'updated_at'];
-
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
+    protected $deletedField  = '';
 
-    protected $skipValidation     = true;
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
+
+    protected $allowCallbacks       = true;
+    protected $beforeInsert         = [];
+    protected $afterInsert          = [];
+    protected $beforeUpdate         = [];
+    protected $afterUpdate          = [];
+    protected $beforeFind           = [];
+    protected $afterFind            = [];
+    protected $beforeDelete         = [];
+    protected $afterDelete          = [];
 
     public function getComment($id = false)
     {
-        $db      = \Config\Database::connect();
-        if($id === false){
-            return $this->findAll();
-        } else {
-            $builder = $db->table('comments c');
-            $builder->select('c.*, p.slug');
-            $builder->join('posts p', 'p.id = c.post_id');
-            $builder->where('c.post_id', $id);
-            $builder->orWhere('p.slug', $id);
-            $builder->where('c.active', 'true');
-            $query = $builder->get();
-            return $query->getResultArray();
-        }  
-    }
-     
-    public function insertComment($data)
-    {
-        return $this->db->table($this->table)->insert($data);
-    }
- 
-    public function updateComment($data, $id)
-    {
-        return $this->db->table($this->table)->update($data, ['id' => $id]);
-    }
- 
-    public function deleteComment($id)
-    {
-        return $this->db->table($this->table)->delete(['id' => $id]);
+        $this->select("{$this->table}.*, p.slug");
+        $this->join("posts p", "p.id = {$this->table}.post_id");
+        $this->where("{$this->table}.post_id", $id);
+        $this->orWhere("p.slug", $id);
+        $this->where("{$this->table}.active", "true");
+        return $this->findAll();
     }
 
-    public function count_comment()
+    public function countComment()
 	{
 		return $this->countAll();
 	}

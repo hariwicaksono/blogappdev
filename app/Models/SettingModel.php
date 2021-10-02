@@ -4,36 +4,33 @@ use CodeIgniter\Model;
 
 class SettingModel extends Model
 {
+    protected $DBGroup  = 'default';
     protected $table = 'settings';
     protected $primaryKey = 'id'; 
-
+    protected $insertID             = 0;
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
-
-    protected $allowedFields = ['brand', 'company', 'website', 'phone', 'email', 'landing_intro', 'landing_img', 'theme','updated_at'];
-    protected $useTimestamps = false;
+    protected $protectFields = true;
+    protected $allowedFields = ['brand', 'company', 'website', 'phone', 'email', 'landing_intro', 'landing_img', 'theme'];
+    
+    protected $useTimestamps = true;
+    protected $createdField  = '';
     protected $updatedField  = 'updated_at';
+    protected $deletedField  = '';
 
-    protected $skipValidation     = true;
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
 
-    public function getSetting($id)
-    {
-        return $this->getWhere(['id' => $id])->getResult();  
-    }
-     
-    public function insertSetting($data)
-    {
-        return $this->db->table($this->table)->insert($data);
-    }
- 
-    public function updateSetting($data, $id)
-    {
-        return $this->db->table($this->table)->update($data, ['id' => $id]);
-    }
- 
-    public function deleteSetting($id)
-    {
-        return $this->db->table($this->table)->delete(['id' => $id]);
-    }
+    protected $allowCallbacks       = true;
+    protected $beforeInsert         = [];
+    protected $afterInsert          = [];
+    protected $beforeUpdate         = [];
+    protected $afterUpdate          = [];
+    protected $beforeFind           = [];
+    protected $afterFind            = [];
+    protected $beforeDelete         = [];
+    protected $afterDelete          = [];
 
 }

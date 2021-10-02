@@ -1,11 +1,10 @@
 <?php namespace App\Controllers;
 
-use \Appkita\CI4Restfull\RestfullApi;
+use App\Controllers\BaseControllerApi;
 
-class ImageUpload extends RestfullApi
+class ImageUpload extends BaseControllerApi
 {
     protected $format       = 'json';
-    protected $auth = ['key'];
 
 	public function create()
     {
