@@ -176,5 +176,17 @@ class Product extends BaseControllerApi
                 return $this->respond($response, 200);
         }  
     }
+	
+	public function countProduct()
+	{
+        $count = $this->model->countProduct();
+        $data = [
+            'status' => true,
+            'message' => 'Berhasil menampilkan data',
+            'data' => $count
+        ];
+
+        return $this->respond($data, 200);
+    }
     
 }

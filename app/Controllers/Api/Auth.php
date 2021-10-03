@@ -36,7 +36,7 @@ class Auth extends BaseControllerApi
             return $this
                 ->getResponse(
                     $this->validator->getErrors(),
-                    ResponseInterface::HTTP_BAD_REQUEST
+                    ResponseInterface::HTTP_OK
                 );
         }
 

@@ -21,10 +21,8 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
-		'jwtauth'     => [
-			Cors::class,
-			JWTAuthenticationFilter::class,
-		], 
+		'cors'     => Cors::class,
+		'jwtauth'  => JWTAuthenticationFilter::class,
 	];
 
 	/**
@@ -35,6 +33,7 @@ class Filters extends BaseConfig
 	 */
 	public $globals = [
 		'before' => [
+			'cors',
 			// 'honeypot',
 			// 'csrf',
 		],

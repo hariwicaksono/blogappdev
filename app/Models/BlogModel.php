@@ -60,14 +60,14 @@ class BlogModel extends Model
         return $this->countAll();
     }
 
-    public function searchBlog($id)
+    public function searchBlog($query = false)
     {
-        $this->like("title", $id);
-        $this->orLike("body", $id);
+        $this->like("title", $query);
+        $this->orLike("body", $query);
         return $this->findAll();
     }
 
-    public function searchTag($category)
+    public function searchByTag($category = false)
     {
         $this->select("{$this->table}.*, c.name as category, u.name as user");
         $this->join("categories c", "c.id = {$this->table}.category_id");

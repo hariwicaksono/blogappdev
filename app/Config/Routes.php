@@ -40,11 +40,47 @@ $routes->group('api', ['namespace' => $routes->getDefaultNamespace() . 'Api'], f
 	$routes->post('blog/save', 'Blog::create');
 	$routes->put('blog/update/(:segment)', 'Blog::update/$1');
 	$routes->delete('blog/delete', 'Blog::delete');
+	$routes->put('blog/imgupload/(:segment)', 'Blog::imgUpload/$1');
+	$routes->put('blog/setcategory/(:segment)', 'Blog::setCategory/$1');
+	$routes->get('count/blog', 'Blog::countBlog');
+	
+	$routes->get('search', 'Blog::searchBlog');
+	$routes->get('tag', 'Blog::searchTag');
+	
 	$routes->get('category', 'Category::index');
 	$routes->get('category/(:segment)', 'Category::show/$1');
 	$routes->post('category/save', 'Category::create');
 	$routes->put('category/update/(:segment)', 'Category::update/$1');
 	$routes->delete('category/delete', 'Category::delete');
+	$routes->get('count/category', 'Category::countCategory');
+	
+	$routes->get('setting', 'Setting::index');
+	$routes->put('setting/update/(:segment)', 'Setting::update/$1');
+	$routes->put('setting/landing/(:segment)', 'Setting::setLanding/$1');
+	
+	$routes->get('user', 'User::index');
+	$routes->get('user/(:segment)', 'User::show/$1');
+	$routes->post('user/save', 'User::create');
+	$routes->put('user/update', 'User::update');
+	$routes->delete('user/delete', 'User::delete');
+	$routes->put('user/changepassword/(:segment)', 'User::changePassword/$1');
+	
+	$routes->get('slideshow', 'Slideshow::index');
+	$routes->get('slideshow/(:segment)', 'Slideshow::show/$1');
+	$routes->post('slideshow/save', 'Slideshow::create');
+	$routes->put('slideshow/update/(:segment)', 'Slideshow::update/$1');
+	$routes->delete('slideshow/delete', 'Slideshow::delete');
+	$routes->put('slideshow/upload/(:segment)', 'Slideshow::upload/$1');
+	
+	$routes->get('comment', 'Comment::index');
+	$routes->get('comment/(:segment)', 'Comment::show/$1');
+	$routes->post('comment/save', 'Comment::create');
+	$routes->put('comment/update/(:segment)', 'Comment::update/$1');
+	$routes->get('count/comment', 'Comment::countComment');
+	
+	$routes->get('menu', 'Menu::index');
+	$routes->get('product', 'Product::index');
+	$routes->get('count/product', 'Product::countProduct');
 });
 
 /*

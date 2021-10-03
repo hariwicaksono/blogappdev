@@ -10,14 +10,9 @@ class User extends BaseControllerApi
 
 	public function index()
 	{
-        $id = $this->request->getVar('id');
-        if ($id == null) {
-			$user = $this->model->getUser();
-		} else {
-			$user = $this->model->getUser($id);
-		}
+		$data = $this->model->findAll();
 
-        if ($user) {
+        if ($data) {
             $response = [
                 'status' => true,
                 'message' => 'Berhasil menampilkan semua data',
@@ -39,8 +34,7 @@ class User extends BaseControllerApi
         $data = [
             'status' => true,
             'message' => 'Berhasil menampilkan data',
-            'data' => $this->model->getUser($id),
-            //'data' => $this->model->find($id)
+            'data' => $this->model->find($id),
         ];
 
         return $this->respond($data, 200);
@@ -48,92 +42,85 @@ class User extends BaseControllerApi
 
     public function create()
     {
-        
-        $data = [
-            'email' => $this->request->getPost('email'),
-            'username' => $this->request->getPost('username'),
-            'password' => $this->request->getPost('password'),
-            'name' => $this->request->getPost('name'),
-            'status_user' => $this->request->getPost('status_user'),
-            'status_active' => $this->request->getPost('status_active'),
-            'created_at' => date("Y-m-d H:i:s")
+		$rules = [
+            'email' => [
+                'rules'  => 'required',
+                'errors' => []
+            ],
         ];
-
-        if ($this->model->save($data) > 0) {
+		
+		if ($this->request->getJSON()) {
+            $input = $this->request->getJSON();
+            $data = [
+                'email' => $input->email,
+				'username' => $input->username,
+				'password' => $input->password,
+				'name' => $input->name,
+				'status_user' => $input->status_user,
+				'status_active' => $input->status_active,
+            ];
+        } else {
+            $data = [
+                'email' => $this->request->getPost('email'),
+				'username' => $this->request->getPost('username'),
+				'password' => $this->request->getPost('password'),
+				'name' => $this->request->getPost('name'),
+				'status_user' => $this->request->getPost('status_user'),
+				'status_active' => $this->request->getPost('status_active'),
+            ];
+        }
+		
+		if (!$this->validate($rules)) {
             $response = [
-                'status' => true,
-                'message' => 'Berhasil menyimpan data',
-                'data' => []
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
         } else {
-            $response = [
-                'status' => false,
-                'message' => 'Gagal menyimpan data',
-                'data' => []
-            ];
-            return $this->respond($response, 200);
+            $simpan = $this->model->save($data);
+            if ($simpan) {
+                $response = [
+                    'status' => true,
+                    'message' => 'Berhasil menyimpan data',
+                    'data' => [],
+                ];
+                return $this->respond($response, 200);
+            }
         }
     }
  
     public function update($id = null)
     {
-        if ($this->request)
-        {
-            //get request from Reactjs
-            if($this->request->getJSON()) {
-                $input = $this->request->getJSON();
-                $data = [
-                    'email' => $input->email,
-                    'name' => $input->name,
-                    'updated_at' => date("Y-m-d H:i:s")
-                ];
 
-                if ($data > 0) {
-                    $this->model->update($input->id, $data);
 
-                    $response = [
-                        'status' => true,
-                        'message' => 'Berhasil memperbarui data',
-                        'data' => []
-                    ];
-                    return $this->respond($response, 200);
-                } else {
-                    $response = [
-                        'status' => false,
-                        'message' => 'Gagal memperbarui data',
-                        'data' => []
-                    ];
-                    return $this->respond($response, 200);
-                }
+        if ($this->request->getJSON()) {
+            $input = $this->request->getJSON();
+			$id = $input->id;
+            $data = [
+			    'name' => $input->name,
+                'email' => $input->email,
                 
-            } /**else {
-                //get request from PostMan and more
-                $input = $this->request->getRawInput();
-                $data = [
-                    'email' => $input['email'],
-                    'name' => $input['name'],
-                    'updated_at' => date("Y-m-d H:i:s")
-                ];
-    
-                if ($data > 0) {
-                    $this->model->update($id, $data);
-    
-                    $response = [
-                        'status' => '200',
-                        'data' => 'Success Update data'
-                    ];
-                    return $this->respond($response, 200);
-                } else {
-                    $response = [
-                        'status' => '404',
-                        'data' => 'Failed Update Data'
-                    ];
-                    return $this->respond($response, 404);
-                }      
-            }**/
+            ];
+        } else {
+            $input = $this->request->getRawInput();
+			$id = $input['id'];
+            $data = [
+			    'name' => $input['name'],
+                'email' => $input['email'],
+              
+            ];
         }
 
+			$this->model->update($id, $data);
+                $response = [
+                    'status' => true,
+                    'message' => 'Berhasil memperbarui data',
+                    'data' => [],
+                ];
+            return $this->respond($response, 200);
+            
+        
     }
 
     public function delete($id = null)

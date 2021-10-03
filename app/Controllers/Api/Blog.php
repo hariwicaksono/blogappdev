@@ -168,7 +168,7 @@ class Blog extends BaseControllerApi
         }  
     }
 
-    public function upload($id = null)
+    public function imgUpload($id = null)
     {
         if ($this->request->getJSON()) {
             $json = $this->request->getJSON();
@@ -245,15 +245,16 @@ class Blog extends BaseControllerApi
         return $this->respond($data, 200);
     }
 
-    public function searchBlog($id = null)
+    public function searchBlog()
     {
-		$search = $this->model->searchBlog($id);
-		
-        if ($search) {
+		$input = $this->request->getVar();
+        $query = $input['query'];
+		$data = $this->model->searchBlog($query);
+        if ($data) {
             $response = [
                 'status' => true,
                 'message' => 'Berhasil menampilkan data',
-                'data' => $search
+                'data' => $data
             ];
             return $this->respond($response, 200);
         } else {
@@ -266,25 +267,11 @@ class Blog extends BaseControllerApi
         }
     }
 
-    public function searchTag($id = null)
+    public function searchTag()
     {
-		$search = $this->model->searchTag($id);
-		
-        if ($search) {
-            $response = [
-                'status' => true,
-                'message' => 'Berhasil menampilkan data',
-                'data' => $search
-            ];
-            return $this->respond($response, 200);
-        } else {
-            $response = [
-                'status' => false,
-                'message' => 'Tidak ada data',
-                'data' => []
-            ];
-            return $this->respond($response, 200);
-        }
+		$input = $this->request->getVar();
+        $category = $input['category'];
+        return $this->respond(["status" => true, "message" => "Success", "data" => $this->model->searchByTag($category)], 200);
     }
     
 }

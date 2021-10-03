@@ -20,17 +20,6 @@ class Setting extends BaseControllerApi
         return $this->respond($data, 200);
     }
     
-    public function show($id = null)
-    {
-        $data = [
-            'status' => true,
-            'message' => 'Berhasil menampilkan data',
-            'data' => $this->model->find($id)
-        ];
-
-        return $this->respond($data, 200);
-    }
-
     public function update($id = null)
     {
         $rules = [
@@ -68,7 +57,7 @@ class Setting extends BaseControllerApi
             ];
             return $this->respond($response, 200);
         } else {
-            $simpan = $this->model->save($data);
+            $simpan = $this->model->update($id,$data);
             if ($simpan) {
                 $response = [
                     'status' => true,
@@ -113,7 +102,7 @@ class Setting extends BaseControllerApi
             ];
             return $this->respond($response, 200);
         } else {
-            $simpan = $this->model->save($data);
+            $simpan = $this->model->update($id,$data);
             if ($simpan) {
                 $response = [
                     'status' => true,

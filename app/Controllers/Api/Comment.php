@@ -90,37 +90,48 @@ class Comment extends BaseControllerApi
 
     public function update($id = null)
     {
+		$rules = [
+            'id' => [
+                'rules'  => 'required',
+                'errors' => []
+            ]
+        ];
+		
         if ($this->request->getJSON()) {
             $input = $this->request->getJSON();
+			$id = $input->id;
             $data = [
                 'active' => $input->active,
             ];
         } else {
             $input = $this->request->getRawInput();
+			$id = $input['id'];
             $data = [
                 'active' => $input['active'],
             ];
         }
 
-        if ($data > 0) {
-            $this->model->update($id, $data);
-            $response = [
-                'status' => true,
-                'message' => 'Berhasil memperbarui data',
-                'data' => [],
-            ];
-            return $this->respond($response, 200);
-        } else {
+        if (!$this->validate($rules)) {
             $response = [
                 'status' => false,
-                'message' => 'Gagal memperbarui data',
+                'message' => 'Validasi Gagal',
                 'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
+        } else {
+            $simpan = $this->model->update($id, $data);
+            if ($simpan) {
+                $response = [
+                    'status' => true,
+                    'message' => 'Berhasil memperbarui data',
+                    'data' => [],
+                ];
+                return $this->respond($response, 200);
+            }
         }
     }
-
-    public function countComment()
+	
+	public function countComment()
 	{
         $count = $this->model->countComment();
         $data = [
