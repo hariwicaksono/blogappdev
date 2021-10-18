@@ -16,7 +16,7 @@ class Menu extends BaseControllerApi
         if ($data) {
             $response = [
                 'status' => true,
-                'message' => 'Berhasil menampilkan semua data',
+                'message' => lang('App.successGetAllData'),
                 'data' => $data,
                 'jumlah' => $count
             ];
@@ -24,7 +24,7 @@ class Menu extends BaseControllerApi
         } else {
             $response = [
                 'status' => false,
-                'message' => 'Tidak ada data',
+                'message' => lang('App.noData'),
                 'data' => []
             ];
             return $this->respond($response, 200);
@@ -35,7 +35,7 @@ class Menu extends BaseControllerApi
     {
         $data = [
             'status' => true,
-            'message' => 'Berhasil menampilkan data',
+            'message' => lang('App.successGetData'),
             'data' => $this->model->find($id)
         ];
 
@@ -69,7 +69,7 @@ class Menu extends BaseControllerApi
         if (!$this->validate($rules)) {
             $response = [
                 'status' => false,
-                'message' => 'Validasi Gagal',
+                'message' => lang('App.errors'),
                 'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
@@ -78,7 +78,7 @@ class Menu extends BaseControllerApi
             if ($simpan) {
                 $response = [
                     'status' => true,
-                    'message' => 'Berhasil menyimpan data',
+                    'message' => lang('App.successSave'),
                     'data' => [],
                 ];
                 return $this->respond($response, 200);
@@ -108,14 +108,14 @@ class Menu extends BaseControllerApi
             $this->model->update($id, $data);
             $response = [
                 'status' => true,
-                'message' => 'Berhasil memperbarui data',
+                'message' => lang('App.successUpdate'),
                 'data' => [],
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
                 'status' => false,
-                'message' => 'Gagal memperbarui data',
+                'message' => lang('App.failedUpdate'),
                 'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
@@ -129,14 +129,14 @@ class Menu extends BaseControllerApi
             $this->model->delete($id);
             $response = [
                 'status' => true,
-                'message' => 'Berhasil menghapus data',
+                'message' => lang('App.successDelete'),
                 'data' => []
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
                 'status' => false,
-                'message' => 'Gagal menghapus data',
+                'message' => lang('App.failedDelete'),
                 'data' => []
             ];
             return $this->respond($response, 200);

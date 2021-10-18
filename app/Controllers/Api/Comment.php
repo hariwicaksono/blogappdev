@@ -15,14 +15,14 @@ class Comment extends BaseControllerApi
         if ($data) {
             $response = [
                 'status' => true,
-                'message' => 'Berhasil menampilkan semua data',
+                'message' => lang('App.successGetAllData'),
                 'data' => $data
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
                 'status' => false,
-                'message' => 'Tidak ada data',
+                'message' => lang('App.noData'),
                 'data' => []
             ];
             return $this->respond($response, 200);
@@ -33,7 +33,7 @@ class Comment extends BaseControllerApi
     {
         $data = [
             'status' => true,
-            'message' => 'Berhasil menampilkan data',
+            'message' => lang('App.successGetData'),
             'data' => $this->model->getComment($id)
         ];
 
@@ -71,7 +71,7 @@ class Comment extends BaseControllerApi
         if (!$this->validate($rules)) {
             $response = [
                 'status' => false,
-                'message' => 'Validasi Gagal',
+                'message' => lang('App.errors'),
                 'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
@@ -80,7 +80,7 @@ class Comment extends BaseControllerApi
             if ($simpan) {
                 $response = [
                     'status' => true,
-                    'message' => 'Berhasil menyimpan data',
+                    'message' => lang('App.successSave'),
                     'data' => [],
                 ];
                 return $this->respond($response, 200);
@@ -114,7 +114,7 @@ class Comment extends BaseControllerApi
         if (!$this->validate($rules)) {
             $response = [
                 'status' => false,
-                'message' => 'Validasi Gagal',
+                'message' => lang('App.errors'),
                 'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
@@ -123,7 +123,7 @@ class Comment extends BaseControllerApi
             if ($simpan) {
                 $response = [
                     'status' => true,
-                    'message' => 'Berhasil memperbarui data',
+                    'message' => lang('App.successUpdate'),
                     'data' => [],
                 ];
                 return $this->respond($response, 200);
@@ -136,7 +136,7 @@ class Comment extends BaseControllerApi
         $count = $this->model->countComment();
         $data = [
             'status' => true,
-            'message' => 'Berhasil menampilkan data',
+            'message' => lang('App.successGetData'),
             'data' => $count
         ];
 

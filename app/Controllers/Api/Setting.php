@@ -13,7 +13,7 @@ class Setting extends BaseControllerApi
         $id = '1';
         $data = [
             'status' => true,
-            'message' => 'Berhasil menampilkan data',
+            'message' => lang('App.successGetAllData'),
             'data' => $this->model->find($id)
         ];
 
@@ -52,7 +52,7 @@ class Setting extends BaseControllerApi
         if (!$this->validate($rules)) {
             $response = [
                 'status' => false,
-                'message' => 'Validasi Gagal',
+                'message' => lang('App.errors'),
                 'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
@@ -61,7 +61,7 @@ class Setting extends BaseControllerApi
             if ($simpan) {
                 $response = [
                     'status' => true,
-                    'message' => 'Berhasil menyimpan data',
+                    'message' => lang('App.successUpdate'),
                     'data' => [],
                 ];
                 return $this->respond($response, 200);
@@ -97,7 +97,7 @@ class Setting extends BaseControllerApi
         if (!$this->validate($rules)) {
             $response = [
                 'status' => false,
-                'message' => 'Validasi Gagal',
+                'message' => lang('App.errors'),
                 'data' => $this->validator->getErrors(),
             ];
             return $this->respond($response, 200);
@@ -106,7 +106,7 @@ class Setting extends BaseControllerApi
             if ($simpan) {
                 $response = [
                     'status' => true,
-                    'message' => 'Berhasil menyimpan data',
+                    'message' => lang('App.successUpdate'),
                     'data' => [],
                 ];
                 return $this->respond($response, 200);

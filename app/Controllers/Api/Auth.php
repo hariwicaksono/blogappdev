@@ -26,7 +26,7 @@ class Auth extends BaseControllerApi
 
         $errors = [
             'password' => [
-                'validateUser' => 'Invalid login credentials provided'
+                'validateUser' => lang('App.authInvalid'),
             ]
         ];
 
@@ -62,7 +62,7 @@ class Auth extends BaseControllerApi
                 ->getResponse(
                     [
                         'status' => true,
-                        'message' => 'Admin authenticated successfully',
+                        'message' => lang('App.authAdmin'),
                         'data' => $user,
                         'isadmin' => true,
                         'access_token' => getSignedJWTForUser($emailAddress)
@@ -73,7 +73,7 @@ class Auth extends BaseControllerApi
                 ->getResponse(
                     [
                         'status' => true,
-                        'message' => 'User authenticated successfully',
+                        'message' => lang('App.authUser'),
                         'data' => $user,
                         'isuser' => true,
                         'access_token' => getSignedJWTForUser($emailAddress)

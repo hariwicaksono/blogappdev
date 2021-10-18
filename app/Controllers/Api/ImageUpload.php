@@ -14,14 +14,14 @@ class ImageUpload extends BaseControllerApi
             $gambar->move('images/', $fileName);
             $response = [
                 'status' => true,
-                'message' => 'Berhasil upload gambar',
+                'message' => lang('App.successUploadImg'),
                 'data' => []
             ];
             return $this->respond($response, 200);
         } else {
             $response = [
                 'status' => false,
-                'message' => 'Gagal upload gambar',
+                'message' => lang('App.failedUploadImg'),
                 'data' => []
             ];
             return $this->respond($response, 200);
