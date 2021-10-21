@@ -1,4 +1,6 @@
-<?php namespace App\Controllers\Api;
+<?php
+
+namespace App\Controllers\Api;
 
 use App\Controllers\BaseControllerApi;
 use App\Models\SettingModel;
@@ -8,8 +10,8 @@ class Setting extends BaseControllerApi
     protected $format       = 'json';
     protected $modelName    = SettingModel::class;
 
-	public function index()
-	{
+    public function index()
+    {
         $id = '1';
         $data = [
             'status' => true,
@@ -19,16 +21,10 @@ class Setting extends BaseControllerApi
 
         return $this->respond($data, 200);
     }
-    
+
     public function update($id = null)
     {
-        $rules = [
-            'title' => [
-                'rules'  => 'required',
-                'errors' => []
-            ],
-        ];
-
+        $id = '1';
         if ($this->request->getJSON()) {
             $input = $this->request->getJSON();
             $data = [
@@ -49,35 +45,27 @@ class Setting extends BaseControllerApi
             ];
         }
 
-        if (!$this->validate($rules)) {
+        if ($data > 0) {
+            $this->model->update($id, $data);
             $response = [
-                'status' => false,
-                'message' => lang('App.errors'),
-                'data' => $this->validator->getErrors(),
+                'status' => true,
+                'message' => lang('App.successUpdate'),
+                'data' => [],
             ];
             return $this->respond($response, 200);
         } else {
-            $simpan = $this->model->update($id,$data);
-            if ($simpan) {
-                $response = [
-                    'status' => true,
-                    'message' => lang('App.successUpdate'),
-                    'data' => [],
-                ];
-                return $this->respond($response, 200);
-            }
+            $response = [
+                'status' => false,
+                'message' => lang('App.errors'),
+                'data' => [],
+            ];
+            return $this->respond($response, 200);
         }
-    } 
+    }
 
-    public function setLanding($id = null)
+    public function updateLanding($id = null)
     {
-        $rules = [
-            'landing_intro' => [
-                'rules'  => 'required',
-                'errors' => []
-            ],
-        ];
-
+        $id = '1';
         if ($this->request->getJSON()) {
             $input = $this->request->getJSON();
             $data = [
@@ -94,23 +82,22 @@ class Setting extends BaseControllerApi
             ];
         }
 
-        if (!$this->validate($rules)) {
+        if ($data > 0) {
+            $this->model->update($id, $data);
             $response = [
-                'status' => false,
-                'message' => lang('App.errors'),
-                'data' => $this->validator->getErrors(),
+                'status' => true,
+                'message' => lang('App.successUpdate'),
+                'data' => [],
             ];
             return $this->respond($response, 200);
         } else {
-            $simpan = $this->model->update($id,$data);
-            if ($simpan) {
-                $response = [
-                    'status' => true,
-                    'message' => lang('App.successUpdate'),
-                    'data' => [],
-                ];
-                return $this->respond($response, 200);
-            }
+
+            $response = [
+                'status' => false,
+                'message' => lang('App.errors'),
+                'data' => [],
+            ];
+            return $this->respond($response, 200);
         }
     }
 }

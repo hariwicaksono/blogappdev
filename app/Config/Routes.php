@@ -56,7 +56,7 @@ $routes->group('api', ['namespace' => $routes->getDefaultNamespace() . 'Api'], f
 	
 	$routes->get('setting', 'Setting::index');
 	$routes->put('setting/update/(:segment)', 'Setting::update/$1');
-	$routes->put('setting/landing/(:segment)', 'Setting::setLanding/$1');
+	$routes->put('setting/landing/(:segment)', 'Setting::updateLanding/$1');
 	
 	$routes->get('user', 'User::index');
 	$routes->get('user/(:segment)', 'User::show/$1');

@@ -90,13 +90,6 @@ class Comment extends BaseControllerApi
 
     public function update($id = null)
     {
-		$rules = [
-            'id' => [
-                'rules'  => 'required',
-                'errors' => []
-            ]
-        ];
-		
         if ($this->request->getJSON()) {
             $input = $this->request->getJSON();
 			$id = $input->id;
@@ -111,23 +104,21 @@ class Comment extends BaseControllerApi
             ];
         }
 
-        if (!$this->validate($rules)) {
+        if ($data > 0) {
+            $this->model->update($id, $data);
             $response = [
-                'status' => false,
-                'message' => lang('App.errors'),
-                'data' => $this->validator->getErrors(),
+                'status' => true,
+                'message' => lang('App.successUpdate'),
+                'data' => [],
             ];
             return $this->respond($response, 200);
         } else {
-            $simpan = $this->model->update($id, $data);
-            if ($simpan) {
-                $response = [
-                    'status' => true,
-                    'message' => lang('App.successUpdate'),
-                    'data' => [],
-                ];
-                return $this->respond($response, 200);
-            }
+            $response = [
+                'status' => false,
+                'message' => lang('App.failedUpdate'),
+                'data' => [],
+            ];
+            return $this->respond($response, 200);
         }
     }
 	
